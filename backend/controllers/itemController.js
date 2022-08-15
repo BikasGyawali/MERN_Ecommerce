@@ -4,7 +4,7 @@ const Item = require("../models/Item");
 //ADD ITEM--Admin
 const addItem = async (req, res) => {
   const value = req.body;
-  const image=req.file.path;
+  const image = req.file.path;
   const product = await Item.create({
     name: value.name,
     description: value.description,
@@ -107,6 +107,13 @@ const getSingleItem = async (req, res) => {
 
 //update items/products --Admin
 const updateItem = async (req, res) => {
+  const value = req.body;
+  let image;
+  if (req.body.image) {
+    image = req.body.image;
+  } else {
+    image = req.file.path;
+  }
   const item = Item.findById(req.params.id);
   if (!item) {
     return res.status(500).json({
@@ -114,14 +121,21 @@ const updateItem = async (req, res) => {
       message: " Product not found",
     });
   }
-  product = await Item.findByIdAndUpdate(req.params.id, req.body, {
+  const data = {
+    name: value.name,
+    description: value.description,
+    category: value.category,
+    price: value.price,
+    stock: value.stock,
+    image: image,
+  };
+  const product = await Item.findByIdAndUpdate(req.params.id, data, {
     new: true,
     runValidators: true,
     useFindandModify: false,
   });
   res.status(200).json({
     success: true,
-    product,
   });
 };
 

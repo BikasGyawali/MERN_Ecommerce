@@ -1,53 +1,50 @@
- import React, { useState, useEffect } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Sidebar from "../Admin/Sidebar";
 import _ from "lodash";
-import { getProductsAdmin, clearErrors, deleteProduct } from "../../actions/productAction";
-import { DELETE_PRODUCT_RESET } from "../../constants/productConstant";
+import { getAllOrders, deleteOrder } from "../../actions/orderAction";
+import { DELETE_ORDER_RESET } from "../../constants/orderConstants";
 
-const ProductList = () => {
-  const navigate=useNavigate(); 
-  const pageSize = 3;
+const OrderList = () => {
+  const navigate = useNavigate();
+  const pageSize = 1;
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [paginatedPosts, setPaginatedPosts] = useState();
   const dispatch = useDispatch();
-  const { error, products } = useSelector((state) => state.products);
-  const {error:deleteError, isDeleted}=useSelector(state=>state.updatedeleteproduct);
+  const { error, isDeleted, orders, clearErrors } = useSelector(
+    (state) => state.allOrders
+  );
 
   useEffect(() => {
-    dispatch(getProductsAdmin());
+    dispatch(getAllOrders());
     if (error) {
       dispatch(clearErrors());
     }
-    if (deleteError) {
-      dispatch(clearErrors());
+    if (isDeleted) {
+      window.alert("Order deleted successfully");
+      navigate("/admin/orders");
+      dispatch({ type: DELETE_ORDER_RESET });
     }
-    if (isDeleted){
-      window.alert('Product Deleted Successfully')
-      navigate("/admin/products");  
-      dispatch({type:DELETE_PRODUCT_RESET})
-    }
-    setPaginatedPosts(_(products).slice(0).take(pageSize).value());
-  }, [dispatch, error,deleteError,isDeleted ]);
+    setPaginatedPosts(_(orders).slice(0).take(pageSize).value());
+  }, [dispatch, error, isDeleted, navigate]);
 
-  const pageCount = products ? Math.ceil(products.length / pageSize) : 0;
-  if (pageCount === 1) return null;
+  const pageCount = orders ? Math.ceil(orders.length / pageSize) : 0;
+  //if (pageCount === 1) return ;
 
   const pages = _.range(1, pageCount + 1);
 
   const pagination = (page) => {
     setCurrentPage(page);
     const startIndex = (page - 1) * pageSize;
-    const paginatedPost = _(products).slice(startIndex).take(pageSize).value();
+    const paginatedPost = _(orders).slice(startIndex).take(pageSize).value();
     setPaginatedPosts(paginatedPost);
   };
+  const deleteOrderHandler = (id) => {
+    dispatch(deleteOrder(id));
+  };
 
-  const deleteProductHandler=(id)=>{
-    dispatch(deleteProduct(id))
-
-  }
   return (
     <>
       <div className="flex w-full">
@@ -55,7 +52,7 @@ const ProductList = () => {
         <div className="w-full">
           <table className="flex bg-gray-50 flex-col items-center py-12">
             <p className="text-2xl font-sans font-bold uppercase pb-8 ">
-              All Products{" "}
+              All Orders{" "}
             </p>
             <input
               type="text"
@@ -66,12 +63,14 @@ const ProductList = () => {
             <thead className="w-[80%] border-[1.5px] bg-gray-500 justify-between border-b-0 border-black flex font-bold items-center py-3">
               <th className="flex w-[20%] justify-center items-center">ID</th>
               <th className="flex  w-[20%] justify-center items-center">
-                Name
+                No of Items
               </th>
               <th className="flex w-[20%] justify-center items-center">
-                Price
+                Amount
               </th>
-              <th className="flexw-[20%] justify-center items-center">Stock</th>
+              <th className="flex w-[20%] justify-center items-center">
+                Status
+              </th>
               <th className="flex w-[20%] justify-center items-center">
                 Actions
               </th>
@@ -102,25 +101,25 @@ const ProductList = () => {
                           {value._id}
                         </td>
                         <td className=" flex w-[20%] justify-center items-center">
-                          {value.name}
+                          {value.orderItems.length}
                         </td>
 
                         <td className=" flex w-[23%] justify-center items-center">
-                          ${value.price}
+                          ${value.bill.allTotal}
                         </td>
                         <td className="flex w-[15%] justify-center items-center">
-                          {value.stock}
+                          {value.orderStatus}
                         </td>
                         <td className="flex gap-x-2 w-[20%] justify-center items-center ">
-                          <Link to={`/update/${value._id}`}>
+                          <Link to={`/updateorder/${value._id}`}>
                             <p className="text-2xl">
-                              <i class="fa-solid fa-edit"></i>
+                              <i className="fa-solid fa-edit"></i>
                             </p>
                           </Link>
-                          <button onClick={()=>deleteProductHandler(value._id)}>
+                          <button onClick={() => deleteOrderHandler(value._id)}>
                             <p className="text-2xl">
-                              <i class="fa-solid fa-trash-can"></i>
-                            </p> 
+                              <i className="fa-solid fa-trash-can"></i>
+                            </p>
                           </button>
                         </td>
                       </tr>
@@ -151,4 +150,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default OrderList;

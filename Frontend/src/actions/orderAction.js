@@ -8,6 +8,15 @@ import {
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_FAIL,
+  ALL_ORDER_REQUEST,
+  ALL_ORDER_SUCCESS,
+  ALL_ORDER_FAIL,
+  UPDATE_ORDER_REQUEST,
+  UPDATE_ORDER_SUCCESS,
+  UPDATE_ORDER_FAIL,
+  DELETE_ORDER_FAIL,
+  DELETE_ORDER_REQUEST,
+  DELETE_ORDER_SUCCESS,
   CLEAR_ERRORS,
 } from "../constants/orderConstants";
 
@@ -76,6 +85,64 @@ export const getOrderDetails = (id) => async (dispatch) => {
     });
   }
 };
+
+//get user orders --ADMIN
+export const getAllOrders = () => async (dispatch) => {
+  try {
+    dispatch({ type:ALL_ORDER_REQUEST });
+    const { data } = await axios.get(`http://localhost:4000/api/getallorders`);
+    console.log(data);
+    dispatch({
+      type:ALL_ORDER_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_ORDER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+
+//update order-ADMIN
+export const updateOrder = (id,value) => async (dispatch) => {
+  console.log(value)
+  try {
+    dispatch({ type:UPDATE_ORDER_REQUEST });
+    const { data } = await axios.put(`http://localhost:4000/api/updateorder/${id}`, {value});
+    dispatch({
+      type:UPDATE_ORDER_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_ORDER_FAIL,
+      payload: error.response.data,
+    });
+  }
+};
+
+
+//delete order-ADMIN
+export const deleteOrder = (id) => async (dispatch) => {
+  try {
+    dispatch({ type:DELETE_ORDER_REQUEST });
+    const { data } = await axios.delete(`http://localhost:4000/api/deleteorder/${id}`);
+    dispatch({
+      type:DELETE_ORDER_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_ORDER_FAIL,
+      payload: error.response.data,
+    });
+  }
+};
+
+
+
 
 
 //Clear ERRORS

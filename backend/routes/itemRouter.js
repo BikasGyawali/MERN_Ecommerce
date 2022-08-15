@@ -8,7 +8,7 @@ router.post(
   ImageUpload.single("image"),
   itemController.addItem
 );
-router.put("/admin/updateitem/:id", itemController.updateItem);
+router.post("/admin/updateitem/:id",ImageUpload.single('image'), itemController.updateItem);
 router.get("/getallitem", itemController.getAllItem);
 router.get("/getsingleitem/:id", itemController.getSingleItem);
 router.get("/admin/getitem", itemController.getAdminItem);

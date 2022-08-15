@@ -12,6 +12,14 @@ import {
   NEW_PRODUCT_SUCCESS,
   NEW_PRODUCT_FAIL,
   NEW_PRODUCT_RESET,
+  DELETE_PRODUCT_REQUEST,
+  DELETE_PRODUCT_SUCCESS,
+  DELETE_PRODUCT_FAIL,
+  DELETE_PRODUCT_RESET,
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_FAIL,
+  UPDATE_PRODUCT_RESET,
   CLEAR_ERRORS,
 } from "../constants/productConstant";
 
@@ -100,9 +108,56 @@ export const newProductReducer = (state = { product: {} }, action) => {
     case NEW_PRODUCT_RESET:
       return {
         ...state,
-        success:false,
+        success: false,
       };
 
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+//admin-product update delete
+export const productUpdateDeleteReducer = (state = { product: {} }, action) => {
+  switch (action.type) {
+    case DELETE_PRODUCT_REQUEST:
+    case UPDATE_PRODUCT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+    case UPDATE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: action.payload,
+      };
+    case DELETE_PRODUCT_FAIL:
+    case UPDATE_PRODUCT_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_PRODUCT_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+      case UPDATE_PRODUCT_RESET:
+        return{
+            loading:false,
+            success:false
+        }
     case CLEAR_ERRORS:
       return {
         ...state,

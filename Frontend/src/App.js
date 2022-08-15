@@ -28,6 +28,9 @@ import OrderDetails from "./components/Order/OrderDetails";
 import Dashboard from "./components/Admin/Dashboard";
 import ProductList from "./components/Admin/ProductList";
 import CreateProduct from "./components/Admin/CreateProduct";
+import UpdateProduct from "./components/Admin/UpdateProduct";
+import OrderList from "./components/Admin/OrderList";
+import UpdateOrder from "./components/Admin/UpdateOrder";
 
 function App() {
   const [stripeAPIkey, setStripeAPIkey] = useState("");
@@ -40,7 +43,6 @@ function App() {
       const { data } = await axios.get(
         "http://localhost:4000/api/payment/getstripeapi"
       );
-
       setStripeAPIkey(data.stripeAPIkey);
     }
     getStripeApikey();
@@ -87,10 +89,14 @@ function App() {
               }
             />
             <Route path="/order" exact element={<Order />} />
-            <Route path="/orderdetails/:id" exact element={<OrderDetails/>} />
-            <Route path="/admin/dashboard" exact element={<Dashboard/>}/>
-            <Route path="/admin/products" exact element={<ProductList/>}/>
-            <Route path="/admin/addProduct" exact element={<CreateProduct/>}/>
+            <Route path="/orderdetails/:id" exact element={<OrderDetails />} />
+            {/*Admin routes */}
+            <Route path="/admin/dashboard" exact element={<Dashboard />} />
+            <Route path="/admin/products" exact element={<ProductList />} />
+            <Route path="/admin/addProduct" exact element={<CreateProduct />} />
+            <Route path="/update/:id" exact element={<UpdateProduct />} />
+            <Route path="/admin/orders" exact element={<OrderList />} />
+            <Route path="/updateorder/:id" exact element={<UpdateOrder />} />
           </Routes>
         </>
       )}

@@ -36,7 +36,7 @@ const getSingleOrder = async (req, res) => {
 
 //get logged in Myorders user
 const myOrders = async (req, res) => {
-  const order = await Order.find({ user: req.user.user.id});
+  const order = await Order.find({ user: req.user.user.id });
   if (!order) {
     return res.status(500).json({ err: "Not Found" });
   }
@@ -53,7 +53,7 @@ const getAllOrders = async (req, res) => {
   let totalAmount = 0;
 
   orders.forEach((order) => {
-    totalAmount += order.bill;
+    totalAmount += order.bill.allTotal;
   });
 
   res.status(200).json({
@@ -65,25 +65,28 @@ const getAllOrders = async (req, res) => {
 
 //update Order Status--Admin
 const updateOrder = async (req, res) => {
-  const order = await Order.find(req.params.id);
-  const status = req.body.orderStatus;
-  console.log(order[0].orderItems);
+  const order = await Order.findById(req.params.id);
   console.log(order);
+  const status = req.body.value;
+
   if (order.orderStatus === "Delivered") {
     return res.json({ message: "Product has been already delivered" });
   }
 
   if (status === "Shipped") {
-    order[0].orderItems?.forEach(async (order) => {
-      await updateStock(order.productId, order.quantity);
-    });
+    order &&
+      order.orderItems.forEach(async (order) => {
+        await updateStock(order.productId, order.quantity);
+      });
   }
 
   if (status === "Delivered") {
     order.deliveredAt = Date.now();
   }
-
-  const data = await Order.updateOne(req.params.id, req.body);
+  const data = await Order.findByIdAndUpdate(req.params.id, {
+    orderStatus: status,
+  });
+  console.log(data);
   res.status(200).json({
     success: true,
     data,
@@ -93,7 +96,7 @@ const updateOrder = async (req, res) => {
     const product = await Item.findById(id);
     product.stock -= quantity;
 
-    await Item.updateOne({ id, stock: product.stock });
+    await Item.findByIdAndUpdate( id, {stock: product.stock });
   }
 };
 

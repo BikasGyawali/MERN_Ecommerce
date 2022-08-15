@@ -10,7 +10,7 @@ const Sidebar = () => {
             {" "}
             <li className="px-4 w-full hover:bg-gray-200 py-2">
               <p className="text-2xl ">
-                <i class="fa-solid fa-address-card pr-2"></i>Dashboard
+                <i className="fa-solid fa-address-card pr-2"></i>Dashboard
               </p>
             </li>
           </NavLink>
@@ -18,28 +18,28 @@ const Sidebar = () => {
             {" "}
             <li className="px-4 w-full hover:bg-gray-200 py-2">
               <p className="text-2xl ">
-                <i class="fa-solid fa-address-card pr-2"></i>Orders
+                <i className="fa-solid fa-address-card pr-2"></i>Orders
               </p>
             </li>
           </NavLink>
           <NavLink to="/admin/products">
             <li className="px-4 w-full hover:bg-gray-200 py-2">
               <p className="text-2xl">
-                <i class="fa-brands fa-product-hunt pr-2"></i>Products
+                <i className="fa-brands fa-product-hunt pr-2"></i>Products
               </p>
             </li>
           </NavLink>
           <NavLink to="/admin/users">
             <li className="px-4 w-full hover:bg-gray-200 py-2">
               <p className="text-2xl">
-                <i class="fa-solid fa-users pr-2"></i>Users
+                <i className="fa-solid fa-users pr-2"></i>Users
               </p>
             </li>
           </NavLink>
           <NavLink to="/admin/settings">
             <li className="px-4 w-full hover:bg-gray-200 py-2">
               <p className="text-2xl">
-                <i class="fa-solid fa-gear pr-2"></i>Settings
+                <i className="fa-solid fa-gear pr-2"></i>Settings
               </p>
             </li>
           </NavLink>

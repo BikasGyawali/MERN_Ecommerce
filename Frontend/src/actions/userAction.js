@@ -118,10 +118,10 @@ export const logout = () => async (dispatch) => {
 //Update user profile
 export const updateUser = (id, formData) => async (dispatch) => {
   try {
-    
     dispatch({ type: UPDATE_USER_REQUEST });
 
-    const { data } = await axios.post(`http://localhost:4000/api/updateuser/${id}`, 
+    const { data } = await axios.post(
+      `http://localhost:4000/api/updateuser/${id}`,
       formData
     );
     dispatch({
@@ -188,7 +188,12 @@ export const getallUsers = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_USERS_REQUEST });
     const { data } = await axios.get(
-      `http://localhost:4000/api/admin/getallusers`
+      `http://localhost:4000/api/admin/getallusers`,
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
     );
     dispatch({
       type: ALL_USERS_SUCCESS,
@@ -207,7 +212,12 @@ export const getSingleUser = (id) => async (dispatch) => {
   try {
     dispatch({ type: SINGLE_USER_REQUEST });
     const { data } = await axios.get(
-      `http://localhost:4000/api/admin/getuser/${id}`
+      `http://localhost:4000/api/admin/getuser/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
     );
     dispatch({
       type: SINGLE_USER_SUCCESS,
@@ -224,11 +234,15 @@ export const getSingleUser = (id) => async (dispatch) => {
 //update single user --Admin
 export const updateSingleUser = (id, values) => async (dispatch) => {
   try {
-    console.log(values);
     dispatch({ type: UPDATE_USER_ADMIN_REQUEST });
     const { data } = await axios.put(
       `http://localhost:4000/api/admin/updatesingleuser/${id}`,
-      values
+      { values },
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
     );
     dispatch({
       type: UPDATE_USER_ADMIN_SUCCESS,

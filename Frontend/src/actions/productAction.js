@@ -62,7 +62,6 @@ export const getProductDetails = (id) => async (dispatch) => {
     const { data } = await axios.get(
       `http://localhost:4000/api/getsingleitem/${id}`
     );
-    console.log(data);
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data.item,
@@ -79,7 +78,14 @@ export const getProductDetails = (id) => async (dispatch) => {
 export const getProductsAdmin = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_PRODUCT_REQUEST });
-    const { data } = await axios.get(`http://localhost:4000/api/admin/getitem`);
+    const { data } = await axios.get(
+      `http://localhost:4000/api/admin/getitem`,
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    );
     dispatch({
       type: ADMIN_PRODUCT_SUCCESS,
       payload: data.items,
@@ -98,11 +104,15 @@ export const createProduct = (formData) => async (dispatch) => {
     for (let value of formData.values()) {
       console.log(value);
     }
-
     dispatch({ type: NEW_PRODUCT_REQUEST });
     const { data } = await axios.post(
       `http://localhost:4000/api/admin/additem`,
-      formData
+      formData,
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
     );
     dispatch({
       type: NEW_PRODUCT_SUCCESS,
@@ -121,7 +131,12 @@ export const deleteProduct = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_PRODUCT_REQUEST });
     const { data } = await axios.delete(
-      `http://localhost:4000/api/admin/deleteitem/${id}`
+      `http://localhost:4000/api/admin/deleteitem/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
     );
     dispatch({
       type: DELETE_PRODUCT_SUCCESS,
@@ -138,11 +153,15 @@ export const deleteProduct = (id) => async (dispatch) => {
 //admin update product
 export const updateProduct = (id, formData) => async (dispatch) => {
   try {
-    console.log(id);
     dispatch({ type: UPDATE_PRODUCT_REQUEST });
     const { data } = await axios.post(
       `http://localhost:4000/api/admin/updateitem/${id}`,
-      formData
+      formData ,
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
     );
     dispatch({
       type: UPDATE_PRODUCT_SUCCESS,

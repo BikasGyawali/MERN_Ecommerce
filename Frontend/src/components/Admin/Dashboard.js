@@ -1,24 +1,23 @@
-import React ,{useEffect} from "react";
+import React, { useEffect } from "react";
 import Sidebar from "../Admin/Sidebar";
 import { getAllOrders } from "../../actions/orderAction";
-import {useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProductsAdmin } from "../../actions/productAction";
 import { getallUsers } from "../../actions/userAction";
 
 const Dashboard = () => {
-  const dispatch=useDispatch();
-  const {orders,totalAmount}=useSelector(state=>state.allOrders)
+  const dispatch = useDispatch();
+  const { orders, totalAmount } = useSelector((state) => state.allOrders);
   const { products } = useSelector((state) => state.products);
   const { users } = useSelector((state) => state.allUsers);
+  
 
   useEffect(() => {
-  dispatch(getProductsAdmin);
-   dispatch(getAllOrders);
-   dispatch(getallUsers);
-  }, [dispatch,orders,totalAmount,products,users])
+    dispatch(getProductsAdmin);
+    dispatch(getAllOrders);
+    dispatch(getallUsers);
+  }, [dispatch]);
 
- 
-  
   return (
     <>
       <div className="flex w-full">

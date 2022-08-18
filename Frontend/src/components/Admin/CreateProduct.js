@@ -20,7 +20,6 @@ const CreateProduct = () => {
   }, [dispatch, error, success]);
  
   const handleSubmit = (values) => {
-    console.log(values);
     const formData = new FormData();
     formData.set("name", values.name);
     formData.set("description", values.description);
@@ -117,9 +116,9 @@ const CreateProduct = () => {
                           Select category
                         </option>
                         <option value="camera">Camera</option>
-                        <option value="camera">Phone</option>
-                        <option value="camera">Food</option>
-                        <option value="camera">Laptop</option>
+                        <option value="phone">Phone</option>
+                        <option value="food">Food</option>
+                        <option value="laptop">Laptop</option>
                       </Field>
                       <p className="text-red-500 center font-sans font-normal">
                         <ErrorMessage name="category" />

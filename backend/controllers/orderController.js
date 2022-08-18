@@ -66,7 +66,6 @@ const getAllOrders = async (req, res) => {
 //update Order Status--Admin
 const updateOrder = async (req, res) => {
   const order = await Order.findById(req.params.id);
-  console.log(order);
   const status = req.body.value;
 
   if (order.orderStatus === "Delivered") {
@@ -86,7 +85,6 @@ const updateOrder = async (req, res) => {
   const data = await Order.findByIdAndUpdate(req.params.id, {
     orderStatus: status,
   });
-  console.log(data);
   res.status(200).json({
     success: true,
     data,

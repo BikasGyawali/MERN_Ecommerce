@@ -33,14 +33,15 @@ import OrderList from "./components/Admin/OrderList";
 import UpdateOrder from "./components/Admin/UpdateOrder";
 import UsersList from "./components/Admin/UsersList";
 import UpdateUser from "./components/Admin/UpdateUser";
+import Unauthorized from "./components/Unauthorized";
 
 function App() {
   const [stripeAPIkey, setStripeAPIkey] = useState("");
 
-  const { loading } = useSelector((state) => state.auth);
+  const { loading, user } = useSelector((state) => state.auth);
+
   useEffect(() => {
     store.dispatch(verifyUser());
-
     async function getStripeApikey() {
       const { data } = await axios.get(
         "http://localhost:4000/api/payment/getstripeapi"
@@ -93,14 +94,38 @@ function App() {
             <Route path="/order" exact element={<Order />} />
             <Route path="/orderdetails/:id" exact element={<OrderDetails />} />
             {/*Admin routes */}
-            <Route path="/admin/dashboard" exact element={<Dashboard />} />
-            <Route path="/admin/products" exact element={<ProductList />} />
-            <Route path="/admin/addProduct" exact element={<CreateProduct />} />
-            <Route path="/update/:id" exact element={<UpdateProduct />} />
-            <Route path="/admin/orders" exact element={<OrderList />} />
-            <Route path="/updateorder/:id" exact element={<UpdateOrder />} />
-            <Route path="/admin/users" exact element={<UsersList />} />
-            <Route path="/admin/updateuser/:id" exact element={<UpdateUser />} />
+            {user && user.user && user.user.role === "admin" ? (
+              <>
+                <Route path="/admin/dashboard" exact element={<Dashboard />} />
+                <Route path="/admin/products" exact element={<ProductList />} />
+                <Route
+                  path="/admin/addProduct"
+                  exact
+                  element={<CreateProduct />}
+                />
+                <Route path="/update/:id" exact element={<UpdateProduct />} />
+                <Route path="/admin/orders" exact element={<OrderList />} />
+                <Route
+                  path="/updateorder/:id"
+                  exact
+                  element={<UpdateOrder />}
+                />
+                <Route path="/admin/users" exact element={<UsersList />} />
+                <Route
+                  path="/admin/updateuser/:id"
+                  exact
+                  element={<UpdateUser />}
+                />
+              </>
+            ) : (
+              <>
+                <Route
+                  path="/unauthorized"
+                  exact
+                  element={<Unauthorized />}
+                ></Route>
+              </>
+            )}
           </Routes>
         </>
       )}

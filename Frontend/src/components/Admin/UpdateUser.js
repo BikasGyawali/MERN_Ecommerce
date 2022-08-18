@@ -34,10 +34,9 @@ const UpdateUser = () => {
 
 
   const handleSubmit = (values) => {
-    console.log(values);
     dispatch(updateSingleUser(id, values));
   };
-  console.log(user.user)
+  
   return (
     <>
       <div className="flex w-full">

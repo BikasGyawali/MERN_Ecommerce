@@ -93,7 +93,11 @@ export const getOrderDetails = (id) => async (dispatch) => {
 export const getAllOrders = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_ORDER_REQUEST });
-    const { data } = await axios.get(`http://localhost:4000/api/getallorders`);
+    const { data } = await axios.get(`http://localhost:4000/api/getallorders`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
 
     dispatch({
       type: ALL_ORDER_SUCCESS,
@@ -113,7 +117,12 @@ export const updateOrder = (id, value) => async (dispatch) => {
     dispatch({ type: UPDATE_ORDER_REQUEST });
     const { data } = await axios.put(
       `http://localhost:4000/api/updateorder/${id}`,
-      { value }
+      { value },
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
     );
     dispatch({
       type: UPDATE_ORDER_SUCCESS,
@@ -132,7 +141,12 @@ export const deleteOrder = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_ORDER_REQUEST });
     const { data } = await axios.delete(
-      `http://localhost:4000/api/deleteorder/${id}`
+      `http://localhost:4000/api/deleteorder/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
     );
     dispatch({
       type: DELETE_ORDER_SUCCESS,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Img from "../../images/1.jpg";
+
 import { getProductDetails, clearErrors } from "../../actions/productAction";
 import { useNavigate } from "react-router-dom";
 import { addItemToCart, removeItemFromCart } from "../../actions/cartAction";
@@ -8,6 +8,7 @@ const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
+
 
   const increaseQuantity = (id, quantity, stock) => {
     const newQuantity = quantity + 1;
@@ -53,7 +54,7 @@ const Cart = () => {
                         className="flex text-2xl  w-full font-bold flex-col md:flex-row items-center md:px-6 md:py-6 shadow-xl rounded bg-gray-50   font-sans justify-center"
                       >
                         <div className="w-full md:w-[20%] flex justify-center items-center">
-                          <img src={Img} className="h-20" alt={item.name} />
+                          <img src={`http://localhost:4000/`+ item.image} className="h-20" alt={item.name} />
                         </div>
                         <span className="w-full md:w-[20%] flex justify-center items-center">
                           {item.name}

@@ -1,11 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Img from "../../images/1.jpg";
-
 
 const ConfirmOrder = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const { shippingInfo } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
@@ -71,7 +69,11 @@ const ConfirmOrder = () => {
                         className="flex text-xl  w-full font-semibold flex-col md:flex-row items-center md:px-6 md:py-6 shadow bg-zinc-200   font-sans justify-between felx-wrap"
                       >
                         <div className="w-ful md:w-[20%] flex justify-center items-center">
-                          <img src={Img} className="h-20" alt={item.name} />
+                          <img
+                            src={`http://localhost:4000/` + item.image}
+                            className="h-20"
+                            alt={item.name}
+                          />
                         </div>
                         <span className="w-ful md:w-[20%] flex justify-center items-center">
                           {item.name}

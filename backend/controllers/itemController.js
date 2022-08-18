@@ -1,9 +1,11 @@
 const Item = require("../models/Item");
+const { ImageUpload } = require("../controllers/imageController");
 //const Features = require("../utils/apiFeatures");
 
 //ADD ITEM--Admin
 const addItem = async (req, res) => {
   const value = req.body;
+  console.log(req.body);
   const image = req.file.path;
   const product = await Item.create({
     name: value.name,

@@ -33,7 +33,7 @@ const ProductList = () => {
   }, [dispatch, error,deleteError,isDeleted ]);
 
   const pageCount = products ? Math.ceil(products.length / pageSize) : 0;
-  if (pageCount === 1) return null;
+  //if (pageCount === 1) return null;
 
   const pages = _.range(1, pageCount + 1);
 

@@ -201,13 +201,21 @@ const Navbar = () => {
             <div className=" flex justify-center items-center">
               <Link to="/cart">
                 <p className="text-2xl pr-3" alt="Add to cart">
-                  <i className="fa-solid fa-cart-arrow-down"></i>
-                  ({cartItems.length})
+                  <i className="fa-solid fa-cart-arrow-down"></i>(
+                  {cartItems.length})
                 </p>
               </Link>
               <div className="dropdown relative">
                 <p className="flex justify-center items-center text-2xl bg-orange-400 h-12 w-12 rounded-full shadow-lg hover:cursor-pointer">
-                  <img src={ user && user.user && `http://localhost:4000/`+ user.user.image} className="rounded-full shadow-lg" alt="user"/>
+                  <img
+                    src={
+                      user &&
+                      user.user &&
+                      `http://localhost:4000/` + user.user.image
+                    }
+                    className="rounded-full shadow-lg"
+                    alt="user"
+                  />
                 </p>
 
                 <div className="dropdownmenu absolute hidden font-bold bg-white z-10 -left-12 top-12 w-40 px-auto pt-5 pb-8 shadow rounded">
@@ -220,6 +228,20 @@ const Navbar = () => {
                         Profile
                       </Link>
                     </li>
+                    {user && user.user && user.user.role === "admin" ? (
+                      <>
+                        <li className="mb-3">
+                          <Link
+                            to="/admin/dashboard"
+                            className="font-base text-md font-sans tracking-wide hover:text-green-600"
+                          >
+                            Dashboard
+                          </Link>
+                        </li>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                     <li className="mb-6">
                       <Link
                         to="/order"
@@ -244,12 +266,12 @@ const Navbar = () => {
           </>
         ) : (
           <div className="hidden lg:flex md:flex  flex-row justify-evenly w-20">
-             <Link to="/cart">
-                <p className="text-2xl pr-1" alt="Add to cart">
-                  <i className="fa-solid fa-cart-arrow-down"></i>
-                  ({cartItems.length})
-                </p>
-              </Link>
+            <Link to="/cart">
+              <p className="text-2xl pr-1" alt="Add to cart">
+                <i className="fa-solid fa-cart-arrow-down"></i>(
+                {cartItems.length})
+              </p>
+            </Link>
             <Link to="/login">
               <p className="text-xl" alt="Add to cart">
                 <i className="fa-solid fa-user"></i>

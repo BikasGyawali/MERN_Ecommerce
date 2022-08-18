@@ -15,13 +15,8 @@ const UpdateProduct = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  //const { loading, error, products } = useSelector((state) => state.products);
-  const {details} = useSelector((state) => state.productDetails);
-  const {error, success}=useSelector(state=>state.updatedeleteproduct)
+  const { error, success } = useSelector((state) => state.updatedeleteproduct);
   const { id } = useParams();
-  
-  const [img, setImg] = useState();
-  const [oldimg, setOldImg] = useState(details.image);
 
   useEffect(() => {
     dispatch(getProductDetails(id));
@@ -30,11 +25,13 @@ const UpdateProduct = () => {
       navigate("/admin/products");
       dispatch({ type: UPDATE_PRODUCT_RESET });
     }
-    
-  }, [dispatch, id,error,success]);
+  }, [dispatch, error, success]);
+
+  const { details } = useSelector((state) => state.productDetails);
+  const [img, setImg] = useState();
+  const [oldImg, setOldImg] = useState(details && details.image);
 
   const handleSubmit = (values) => {
-    console.log(values);
     const formData = new FormData();
     formData.set("name", values.name);
     formData.set("description", values.description);
@@ -42,12 +39,12 @@ const UpdateProduct = () => {
     formData.set("price", values.price);
     formData.set("stock", values.stock);
     formData.set("image", values.image);
-    for (let value of formData.values()){
-      console.log(value)
+    for (let value of formData.values()) {
+      console.log(value);
     }
     dispatch(updateProduct(id, formData));
   };
-  //console.log(productDetails);
+
   return (
     <>
       <div className="flex w-full">
@@ -60,8 +57,7 @@ const UpdateProduct = () => {
             <Formik
               enableReinitialize
               initialValues={
-                details || 
-                  {
+                details || {
                   name: "",
                   description: "",
                   category: "",
@@ -203,15 +199,14 @@ const UpdateProduct = () => {
                           }
                         }}
                       />
-                      {oldimg && (
+                      {oldImg && (
                         <img
-                          src={`http://localhost:4000/`+ oldimg}
+                          src={`http://localhost:4000/` + oldImg}
                           className="h-32 w-32 md:h-40 md:w-40 mt-4"
                           alt="productdetails"
                         />
                       )}
-                         {img && 
-                         (  
+                      {img && (
                         <img
                           src={img}
                           className="h-32 w-32 md:h-40 md:w-40 mt-4"
@@ -228,7 +223,7 @@ const UpdateProduct = () => {
                       type="submit"
                       className="bg-blue-600 hover:bg-blue-500 font-sans mb-6 text-white py-2 px-4 rounded transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 md:hover:scale-105 duration-300 hover:shadow-xl"
                     >
-                      Add Product
+                      Update
                     </button>
                   </div>
                 </Form>

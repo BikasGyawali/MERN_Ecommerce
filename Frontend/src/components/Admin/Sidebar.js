@@ -36,13 +36,6 @@ const Sidebar = () => {
               </p>
             </li>
           </NavLink>
-          <NavLink to="/admin/settings">
-            <li className="px-4 w-full hover:bg-gray-200 py-2">
-              <p className="text-2xl">
-                <i className="fa-solid fa-gear pr-2"></i>Settings
-              </p>
-            </li>
-          </NavLink>
         </ul>
       </div>
     </>

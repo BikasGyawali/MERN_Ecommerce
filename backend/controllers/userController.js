@@ -96,19 +96,18 @@ const updateUser = async (req, res) => {
     } else {
       image = req.file.path;
     }
-    console.log(image);
-      await User.findByIdAndUpdate(
-        {
-          _id: req.params.id,
-        },
-        {
-          name: name,
-          email: email,
-          image: image,
-        }
-      );
+    await User.findByIdAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      {
+        name: name,
+        email: email,
+        image: image,
+      }
+    );
 
-      res.json({ success: true });
+    res.json({ success: true });
   } catch (err) {
     console.log(err);
     res.json(err);
@@ -231,9 +230,10 @@ const getAllUsers = async (req, res) => {
 //update user--Admin
 const updateUserAdmin = async (req, res) => {
   try {
+    console.log(req.body.values);
     const user = await User.findById(req.params.id);
     if (user) {
-      await User.findByIdAndUpdate(req.params.id, req.body);
+      await User.findByIdAndUpdate(req.params.id, req.body.values);
       res.json({ success: true });
     } else {
       res.json({ success: false, message: "No such user exists" });

@@ -11,11 +11,9 @@ const UpdateProfile = () => {
   const [img, setImg] = useState();
 
   const dispatch = useDispatch();
-  const { loading, error, user } = useSelector((state) => state.auth);
-  const { isUpdated } = useSelector((state) => state.user);
 
-  const [oldImg, setOldImg] = useState(user && user.user && user.user.image);
-  console.log(user);
+  const { error, isUpdated } = useSelector((state) => state.user);
+
   useEffect(() => {
     if (error) {
       window.alert(error);
@@ -31,15 +29,19 @@ const UpdateProfile = () => {
       });
     }
   }, [dispatch, error, isUpdated, navigate]);
-  const id = user && user && user.user._id;
+
+  const { loading, user } = useSelector((state) => state.auth);
+  console.log(user);
+  const [oldImg, setOldImg] = useState(user && user.user && user.user.image);
 
   const handleSubmit = (values) => {
+    const id = user && user && user.user._id;
     const formData = new FormData();
     formData.set("name", values.name);
     formData.set("email", values.email);
     formData.set("image", values.image);
-    for (let value of formData.values()){
-      console.log(value)
+    for (let value of formData.values()) {
+      console.log(value);
     }
     dispatch(updateUser(id, formData));
   };

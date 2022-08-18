@@ -21,6 +21,15 @@ import {
   FORGOT_PASSWORD_REQUEST,
   FORGOT_PASSWORD_SUCCESS,
   FORGOT_PASSWORD_FAIL,
+  ALL_USERS_REQUEST,
+  ALL_USERS_SUCCESS,
+  ALL_USERS_FAIL,
+  UPDATE_USER_ADMIN_REQUEST,
+  UPDATE_USER_ADMIN_SUCCESS,
+  UPDATE_USER_ADMIN_FAIL,
+  SINGLE_USER_REQUEST,
+  SINGLE_USER_SUCCESS,
+  SINGLE_USER_FAIL,
 } from "../constants/userConstants";
 
 //login user
@@ -48,13 +57,12 @@ export const login = (values) => async (dispatch) => {
 };
 
 //register user
-export const register = (values) => async (dispatch) => {
+export const register = (formData) => async (dispatch) => {
   try {
     dispatch({ type: REGISTER_REQUEST });
-
     const { data } = await axios.post(
       "http://localhost:4000/api/register",
-      values
+      formData
     );
 
     dispatch({
@@ -73,7 +81,6 @@ export const register = (values) => async (dispatch) => {
 export const verifyUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
-
     const { data } = await axios.get("http://localhost:4000/api/auth", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -109,15 +116,14 @@ export const logout = () => async (dispatch) => {
 };
 
 //Update user profile
-export const updateUser = (values) => async (dispatch) => {
+export const updateUser = (id, formData) => async (dispatch) => {
   try {
-    console.log(values);
+    
     dispatch({ type: UPDATE_USER_REQUEST });
 
-    const { data } = await axios.post("http://localhost:4000/api/updateuser", {
-      values,
-    });
-    console.log(data);
+    const { data } = await axios.post(`http://localhost:4000/api/updateuser/${id}`, 
+      formData
+    );
     dispatch({
       type: UPDATE_USER_SUCCESS,
       payload: data.success,
@@ -172,6 +178,65 @@ export const forgotPassword = (values) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: FORGOT_PASSWORD_FAIL,
+      payload: error.response.data,
+    });
+  }
+};
+
+//get all users Admin
+export const getallUsers = () => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_USERS_REQUEST });
+    const { data } = await axios.get(
+      `http://localhost:4000/api/admin/getallusers`
+    );
+    dispatch({
+      type: ALL_USERS_SUCCESS,
+      payload: data.users,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_USERS_FAIL,
+      payload: error.response.data,
+    });
+  }
+};
+
+//get single user --Admin
+export const getSingleUser = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: SINGLE_USER_REQUEST });
+    const { data } = await axios.get(
+      `http://localhost:4000/api/admin/getuser/${id}`
+    );
+    dispatch({
+      type: SINGLE_USER_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: SINGLE_USER_FAIL,
+      payload: error.response.data,
+    });
+  }
+};
+
+//update single user --Admin
+export const updateSingleUser = (id, values) => async (dispatch) => {
+  try {
+    console.log(values);
+    dispatch({ type: UPDATE_USER_ADMIN_REQUEST });
+    const { data } = await axios.put(
+      `http://localhost:4000/api/admin/updatesingleuser/${id}`,
+      values
+    );
+    dispatch({
+      type: UPDATE_USER_ADMIN_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_USER_ADMIN_FAIL,
       payload: error.response.data,
     });
   }

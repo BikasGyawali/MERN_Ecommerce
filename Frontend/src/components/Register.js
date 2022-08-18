@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { register, clearErrors } from "../actions/userAction";
 
 const Register = () => {
+  const [img, setImg] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, error, isAuthenticated } = useSelector(
@@ -26,13 +27,17 @@ const Register = () => {
   }, [dispatch, error, isAuthenticated]);
 
   const handleSubmit = async (values) => {
-    console.log(values);
-    dispatch(register(values));
+    const formData = new FormData();
+    formData.set("name", values.name);
+    formData.set("email", values.email);
+    formData.set("password", values.password);
+    formData.set("image", values.image);
+    dispatch(register(formData));
   };
 
   return (
     <>
-      <div className="flex pt-12 pb-24 login flex-col bg-gray-100 h-[70vh] font-bold rounded px-auto justify-center items-center">
+      <div className="flex pt-12 pb-24 login flex-col bg-gray-100 h-[90vh] font-bold rounded px-auto justify-center items-center">
         <div className="shadow-lg rounded w-[40%] pt-6  bg-white flex flex-col justify-center items-center">
           <p className="font-sans px-3 pt-2 text-red-500 font-bold text-2xl">
             SIGN UP
@@ -56,7 +61,7 @@ const Register = () => {
             })}
             onSubmit={handleSubmit}
           >
-            <>
+            {({ values, setFieldValue }) => (
               <Form>
                 <div className="px-8 pt-6 pb-8 h-400 w-96 flex flex-col justify-center items-center">
                   <div className="mb-4 flex flex-col justify-start ">
@@ -93,7 +98,7 @@ const Register = () => {
                       <ErrorMessage name="email" />
                     </p>
                   </div>
-                  <div className=" flex flex-col justify-start">
+                  <div className="mb-4 flex flex-col justify-start">
                     <label
                       htmlFor="password"
                       className="font-sans text-sm lg:text-lg uppercase"
@@ -102,10 +107,45 @@ const Register = () => {
                     </label>
                     <Field name="password" component={Passwordshowhide} />
                     <p className="text-red-500 center font-sans font-normal">
-                      <ErrorMessage name="password"/>
+                      <ErrorMessage name="password" />
+                    </p>
+                  </div>
+                  <div className="mb-4 flex flex-col justify-start">
+                    <label
+                      htmlFor="image"
+                      className="font-sans text-sm lg:text-lg uppercase"
+                    >
+                      Image
+                    </label>
+                    <input
+                      className="font-sans appearance-none border h-12 py-2 px-3 w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
+                      type="file"
+                      name="image"
+                      placeholder="Image"
+                      onChange={(e) => {
+                        setFieldValue(
+                          "image",
+                          e.target.files[0],
+                          e.target.files[0].name
+                        );
+                        if (e.target.files.length) {
+                          setImg(URL.createObjectURL(e.target.files[0]));
+                        }
+                      }}
+                    />
+                    {img && (
+                      <img
+                        src={img}
+                        className="h-32 w-32 md:h-40 md:w-40 mt-4"
+                        alt="productdetails"
+                      />
+                    )}
+                    <p className="text-red-500 center font-sans font-normal">
+                      <ErrorMessage name="image" />
                     </p>
                   </div>
                 </div>
+
                 <div className="flex justify-center items-center ">
                   <button
                     disabled={loading ? true : false}
@@ -116,7 +156,7 @@ const Register = () => {
                   </button>
                 </div>
               </Form>
-            </>
+            )}
           </Formik>
           <div className="flex justify-center pb-10 pt-6 font-sans items-center">
             <Link to="/login">

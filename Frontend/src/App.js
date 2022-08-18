@@ -31,6 +31,8 @@ import CreateProduct from "./components/Admin/CreateProduct";
 import UpdateProduct from "./components/Admin/UpdateProduct";
 import OrderList from "./components/Admin/OrderList";
 import UpdateOrder from "./components/Admin/UpdateOrder";
+import UsersList from "./components/Admin/UsersList";
+import UpdateUser from "./components/Admin/UpdateUser";
 
 function App() {
   const [stripeAPIkey, setStripeAPIkey] = useState("");
@@ -97,6 +99,8 @@ function App() {
             <Route path="/update/:id" exact element={<UpdateProduct />} />
             <Route path="/admin/orders" exact element={<OrderList />} />
             <Route path="/updateorder/:id" exact element={<UpdateOrder />} />
+            <Route path="/admin/users" exact element={<UsersList />} />
+            <Route path="/admin/updateuser/:id" exact element={<UpdateUser />} />
           </Routes>
         </>
       )}

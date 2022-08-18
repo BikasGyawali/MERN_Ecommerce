@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate, Link } from "react-router-dom";
 import * as yup from "yup";
@@ -8,11 +8,14 @@ import { UPDATE_USER_RESET } from "../../constants/userConstants";
 
 const UpdateProfile = () => {
   const navigate = useNavigate();
+  const [img, setImg] = useState();
 
   const dispatch = useDispatch();
   const { loading, error, user } = useSelector((state) => state.auth);
   const { isUpdated } = useSelector((state) => state.user);
 
+  const [oldImg, setOldImg] = useState(user && user.user && user.user.image);
+  console.log(user);
   useEffect(() => {
     if (error) {
       window.alert(error);
@@ -28,16 +31,24 @@ const UpdateProfile = () => {
       });
     }
   }, [dispatch, error, isUpdated, navigate]);
+  const id = user && user && user.user._id;
 
   const handleSubmit = (values) => {
-    dispatch(updateUser(values));
+    const formData = new FormData();
+    formData.set("name", values.name);
+    formData.set("email", values.email);
+    formData.set("image", values.image);
+    for (let value of formData.values()){
+      console.log(value)
+    }
+    dispatch(updateUser(id, formData));
   };
 
   return (
     <>
       {user && user.token ? (
         <>
-          <div className="flex pt-12 pb-24 login flex-col bg-gray-100 h-[70vh] font-bold rounded px-auto justify-center items-center">
+          <div className="flex pt-12 pb-24 login flex-col bg-gray-100 h-[90vh] font-bold rounded px-auto justify-center items-center">
             <div className="shadow-lg rounded w-[40%] pt-6  bg-white flex flex-col justify-center items-center">
               <p className="font-sans px-3 pt-2 text-red-500 font-bold text-2xl">
                 Update User
@@ -53,7 +64,7 @@ const UpdateProfile = () => {
                 })}
                 onSubmit={handleSubmit}
               >
-                <>
+                {({ values, setFieldValue }) => (
                   <Form>
                     <div className="px-8 pt-6 pb-8 h-400 w-96 flex flex-col justify-center items-center">
                       <div className="mb-4 flex flex-col justify-start ">
@@ -90,6 +101,48 @@ const UpdateProfile = () => {
                           <ErrorMessage name="email" />
                         </p>
                       </div>
+                      <div className=" flex flex-col justify-start">
+                        <label
+                          htmlFor="image"
+                          className="font-sans text-sm lg:text-lg uppercase"
+                        >
+                          Image
+                        </label>
+                        <input
+                          className="mt-2 font-sans appearance-none border h-12 py-2 px-3 w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
+                          type="file"
+                          name="image"
+                          placeholder="Image"
+                          onChange={(e) => {
+                            setFieldValue(
+                              "image",
+                              e.target.files[0],
+                              e.target.files[0].name
+                            );
+                            if (e.target.files.length) {
+                              setImg(URL.createObjectURL(e.target.files[0]));
+                              setOldImg();
+                            }
+                          }}
+                        />
+                        {oldImg && (
+                          <img
+                            src={`http://localhost:4000/` + oldImg}
+                            className="h-32 w-32 md:h-40 md:w-40 mt-4 rounded-full"
+                            alt="user"
+                          />
+                        )}
+                        {img && (
+                          <img
+                            src={img}
+                            className="h-32 w-32 md:h-40 md:w-40 mt-4 rounded-full "
+                            alt="user"
+                          />
+                        )}
+                        <p className="text-red-500 center font-sans font-normal">
+                          <ErrorMessage name="image" />
+                        </p>
+                      </div>
                     </div>
                     <div className="flex justify-center items-center ">
                       <button
@@ -101,7 +154,7 @@ const UpdateProfile = () => {
                       </button>
                     </div>
                   </Form>
-                </>
+                )}
               </Formik>
             </div>
           </div>

@@ -9,22 +9,19 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const { error, user } = useSelector((state) => state.auth);
-  const { isUpdated } = useSelector((state) => state.user);
 
-  //   useEffect(() => {
+  const { error, success, message } = useSelector(
+    (state) => state.forgotPassword
+  );
 
-  //     if (isUpdated && !isUpdated.success) {
-  //       window.alert(isUpdated.error);
-  //     }
-  //     if (isUpdated && isUpdated.success) {
-  //       window.alert("Password updated successfully");
-  //       navigate("/profile");
-  //       dispatch({
-  //         type: CHANGE_PASSWORD_RESET,
-  //       });
-  //     }
-  //   }, [dispatch, error, isUpdated, navigate]);
+  useEffect(() => {
+    if (error) {
+      window.alert(error.error);
+    }
+    if (success) {
+      window.alert(message);
+    }
+  }, [dispatch, error, success, message]);
 
   const handleSubmit = (values) => {
     dispatch(forgotPassword(values));

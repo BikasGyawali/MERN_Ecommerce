@@ -32,7 +32,7 @@ export const createOrder = (order) => async (dispatch) => {
     const { data } = await axios.post("http://localhost:4000/api/createorder", {
       order,
     });
-    console.log(data);
+
     dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -68,14 +68,17 @@ export const myOrders = () => async (dispatch) => {
 export const getOrderDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: ORDER_DETAILS_REQUEST });
-    const { data } = await axios.get(`http://localhost:4000/api/getsingleorder/${id}`, {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    });
-    console.log(data);
+    const { data } = await axios.get(
+      `http://localhost:4000/api/getsingleorder/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    );
+
     dispatch({
-      type:ORDER_DETAILS_SUCCESS,
+      type: ORDER_DETAILS_SUCCESS,
       payload: data.order,
     });
   } catch (error) {
@@ -89,11 +92,11 @@ export const getOrderDetails = (id) => async (dispatch) => {
 //get user orders --ADMIN
 export const getAllOrders = () => async (dispatch) => {
   try {
-    dispatch({ type:ALL_ORDER_REQUEST });
+    dispatch({ type: ALL_ORDER_REQUEST });
     const { data } = await axios.get(`http://localhost:4000/api/getallorders`);
-    console.log(data);
+
     dispatch({
-      type:ALL_ORDER_SUCCESS,
+      type: ALL_ORDER_SUCCESS,
       payload: data,
     });
   } catch (error) {
@@ -104,15 +107,16 @@ export const getAllOrders = () => async (dispatch) => {
   }
 };
 
-
 //update order-ADMIN
-export const updateOrder = (id,value) => async (dispatch) => {
-  console.log(value)
+export const updateOrder = (id, value) => async (dispatch) => {
   try {
-    dispatch({ type:UPDATE_ORDER_REQUEST });
-    const { data } = await axios.put(`http://localhost:4000/api/updateorder/${id}`, {value});
+    dispatch({ type: UPDATE_ORDER_REQUEST });
+    const { data } = await axios.put(
+      `http://localhost:4000/api/updateorder/${id}`,
+      { value }
+    );
     dispatch({
-      type:UPDATE_ORDER_SUCCESS,
+      type: UPDATE_ORDER_SUCCESS,
       payload: data.success,
     });
   } catch (error) {
@@ -123,14 +127,15 @@ export const updateOrder = (id,value) => async (dispatch) => {
   }
 };
 
-
 //delete order-ADMIN
 export const deleteOrder = (id) => async (dispatch) => {
   try {
-    dispatch({ type:DELETE_ORDER_REQUEST });
-    const { data } = await axios.delete(`http://localhost:4000/api/deleteorder/${id}`);
+    dispatch({ type: DELETE_ORDER_REQUEST });
+    const { data } = await axios.delete(
+      `http://localhost:4000/api/deleteorder/${id}`
+    );
     dispatch({
-      type:DELETE_ORDER_SUCCESS,
+      type: DELETE_ORDER_SUCCESS,
       payload: data.success,
     });
   } catch (error) {
@@ -140,10 +145,6 @@ export const deleteOrder = (id) => async (dispatch) => {
     });
   }
 };
-
-
-
-
 
 //Clear ERRORS
 export const clearErrors = () => async (dispatch) => {

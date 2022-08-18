@@ -17,13 +17,16 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: [true, "Please enter a valid password"],
-    select:false,
+    select: false,
     minlength: [6, "Minimum password length must be 6 characters"],
-    
   },
-  role:{
-   type:String,
-   default:"user"
+  role: {
+    type: String,
+    default: "user",
+  },
+  image: {
+    type: String,
+    required: true,
   },
   register_date: {
     type: Date,
@@ -32,4 +35,4 @@ const UserSchema = new Schema({
 });
 
 const User = mongoose.model("User", UserSchema);
-module.exports=User
+module.exports = User;

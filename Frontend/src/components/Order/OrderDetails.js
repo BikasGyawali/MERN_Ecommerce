@@ -14,7 +14,7 @@ const OrderDetails = () => {
   }, [dispatch, id]);
 
   const { orders } = useSelector((state) => state.orderDetails);
-  console.log(orders);
+ 
 
   return (
     <>

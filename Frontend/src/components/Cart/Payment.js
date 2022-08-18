@@ -25,7 +25,7 @@ const Payment = () => {
   const { cartItems, shippingInfo } = useSelector((state) => state.cart);
 
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
-  console.log(user);
+  
 
   const bill = {
     itemsPrice: orderInfo.itemsPrice,
@@ -41,7 +41,6 @@ const Payment = () => {
   };
 
   if (user && user.user) {
-    console.log("hello");
     order.user = user.user._id;
   }
 

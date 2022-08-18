@@ -63,16 +63,16 @@ const ProductList = () => {
               className="w-[60%] flex bg-gray-100 justify-center items-center shadow rounded p-3 my-2"
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <thead className="w-[80%] border-[1.5px] bg-gray-500 justify-between border-b-0 border-black flex font-bold items-center py-3">
-              <th className="flex w-[20%] justify-center items-center">ID</th>
-              <th className="flex  w-[20%] justify-center items-center">
-                Name
+            <thead className="w-[80%] border-[1.5px] border-b-0 border-black flex justify-between font-bold items-center py-3">
+              <th className="flex w-[18%] justify-center items-center">
+                 Id
               </th>
-              <th className="flex w-[20%] justify-center items-center">
+              <th className="flex w-[18%] justify-center items-center">Name</th>
+              <th className="flex w-[18%] justify-center items-center">
                 Price
               </th>
-              <th className="flexw-[20%] justify-center items-center">Stock</th>
-              <th className="flex w-[20%] justify-center items-center">
+              <th className="flex w-[18%] justify-center items-center">Stock</th>
+              <th className="flex w-[18%] justify-center items-center">
                 Actions
               </th>
             </thead>
@@ -98,28 +98,28 @@ const ProductList = () => {
                         key={index}
                         className="flex justify-between items-center space-y-4"
                       >
-                        <td className="flex w-[25%] justify-center items-center">
+                        <td className="flex w-[18%] justify-center items-center">
                           {value._id}
                         </td>
-                        <td className=" flex w-[20%] justify-center items-center">
+                        <td className=" flex w-[18%] justify-center items-center">
                           {value.name}
                         </td>
 
-                        <td className=" flex w-[23%] justify-center items-center">
+                        <td className=" flex w-[18%] justify-center items-center">
                           ${value.price}
                         </td>
-                        <td className="flex w-[15%] justify-center items-center">
+                        <td className="flex w-[18%] justify-center items-center">
                           {value.stock}
                         </td>
-                        <td className="flex gap-x-2 w-[20%] justify-center items-center ">
+                        <td className="flex gap-x-2 w-[18%] justify-center items-center ">
                           <Link to={`/update/${value._id}`}>
                             <p className="text-2xl">
-                              <i class="fa-solid fa-edit"></i>
+                              <i className="fa-solid fa-edit"></i>
                             </p>
                           </Link>
                           <button onClick={()=>deleteProductHandler(value._id)}>
                             <p className="text-2xl">
-                              <i class="fa-solid fa-trash-can"></i>
+                              <i className="fa-solid fa-trash-can"></i>
                             </p> 
                           </button>
                         </td>

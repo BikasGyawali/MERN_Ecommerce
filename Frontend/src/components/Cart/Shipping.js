@@ -14,6 +14,7 @@ const Shipping = () => {
     window.scrollTo({ top: 0 });
   }, []);
   const handleSubmit = (values) => {
+    
     dispatch(saveShippingInfo(values));
     navigate("/confirm");
   };

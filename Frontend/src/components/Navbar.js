@@ -207,7 +207,7 @@ const Navbar = () => {
               </Link>
               <div className="dropdown relative">
                 <p className="flex justify-center items-center text-2xl bg-orange-400 h-12 w-12 rounded-full shadow-lg hover:cursor-pointer">
-                  <i className="fa-solid fa-user"></i>
+                  <img src={ user && user.user && `http://localhost:4000/`+ user.user.image} className="rounded-full shadow-lg" alt="user"/>
                 </p>
 
                 <div className="dropdownmenu absolute hidden font-bold bg-white z-10 -left-12 top-12 w-40 px-auto pt-5 pb-8 shadow rounded">

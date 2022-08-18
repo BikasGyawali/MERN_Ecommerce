@@ -1,13 +1,15 @@
 const User = require("../models/User");
 const { sign } = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const sendMail = require("./emailController");
 require("dotenv").config();
-const SECRET_KEY=process.env.SECRET_KEY;
+const SECRET_KEY = process.env.SECRET_KEY;
 
 //user register
 const signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+    const image = req.file.path;
 
     if (!name || !email || !password) {
       res.status(400).json({ msg: "Please enter all fields" });
@@ -20,7 +22,12 @@ const signup = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
 
-        const newUser = new User({ name: name, email: email, password: hash });
+        const newUser = new User({
+          name: name,
+          email: email,
+          password: hash,
+          image: image,
+        });
         //saving data to the database and sending user data as json
         const data = await newUser.save();
         res.json(data);
@@ -79,24 +86,29 @@ const getUser = async (req, res) => {
   }
 };
 
-//update user profile
+//update user profile--User
 const updateUser = async (req, res) => {
   try {
-    console.log(req.body.values);
-    const { name, email } = req.body.values;
-    if (req.body.values._id.match(/^[0-9a-fA-F]{24}$/)) {
+    const { name, email } = req.body;
+    let image;
+    if (req.body.image) {
+      image = req.body.image;
+    } else {
+      image = req.file.path;
+    }
+    console.log(image);
       await User.findByIdAndUpdate(
         {
-          _id: req.body.values._id,
+          _id: req.params.id,
         },
         {
           name: name,
           email: email,
+          image: image,
         }
       );
 
       res.json({ success: true });
-    }
   } catch (err) {
     console.log(err);
     res.json(err);
@@ -141,19 +153,93 @@ const changePassword = async (req, res) => {
   }
 };
 
-//forgot password
+//forgot password--sending email link
 const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body.values;
-    const user = await User.findOne({ email });
+    console.log(email);
+    const user = await User.findOne({ email }).select("+password");
     console.log(user);
+
     if (user) {
       //user exists and create a one time link valid for 2 minutes
+      const token = user.password + SECRET_KEY;
+      const link = `${process.env.BASE_URL}/passwordreset/${user.id}/${token}`;
+      await sendMail(user.email, "Password Reset", link);
+      res.json({
+        success: true,
+        message: "Password reset link sent to your email",
+      });
     } else {
       res.json({ success: false, error: "NO SUCH USER EXISTS" });
     }
   } catch (error) {
-    res.json({ success: false, error: "" });
+    res.json({ success: false, error: "An error occured" });
+  }
+};
+
+//forgot password--handling provided password
+const handleForgotPassword = async (req, res) => {
+  try {
+    const user = User.findById(req.params.id);
+    if (user) {
+      const token = user.password + SECRET_KEY;
+      if (token === req.params.token) {
+        const password = req.body.password;
+        const confirmPassword = req.body.confirmPassword;
+        if (password === confirmPassword) {
+          const salt = await bcrypt.genSalt(10);
+          const hash = await bcrypt.hash(password, salt);
+          await User.findByIdAndUpdate(
+            { _id: req.params.id },
+            {
+              password: hash,
+            }
+          );
+        }
+      } else {
+        return res.json({ success: false, message: "Inavlid link or expired" });
+      }
+
+      res.json({ success: true, message: "Password Updated Successfully" });
+    } else {
+      res.json({ success: false, error: "NO SUCH USER EXISTS" });
+    }
+  } catch (error) {}
+};
+
+//getsingleuser--Admin
+const getSingleUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.json({ success: true, user });
+  } catch (error) {
+    res.json({ success: false, error: error });
+  }
+};
+
+//get all users-Admin
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json({ success: true, users });
+  } catch (error) {
+    res.json({ success: false, error: error });
+  }
+};
+
+//update user--Admin
+const updateUserAdmin = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      await User.findByIdAndUpdate(req.params.id, req.body);
+      res.json({ success: true });
+    } else {
+      res.json({ success: false, message: "No such user exists" });
+    }
+  } catch (error) {
+    res.json({ success: false, error: error });
   }
 };
 
@@ -164,4 +250,8 @@ module.exports = {
   updateUser,
   changePassword,
   forgotPassword,
+  getAllUsers,
+  getSingleUser,
+  updateUserAdmin,
+  handleForgotPassword,
 };

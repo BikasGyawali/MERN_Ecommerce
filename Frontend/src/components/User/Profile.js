@@ -1,5 +1,5 @@
 import React from "react";
-import img from "../../images/account.png";
+
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -14,11 +14,11 @@ const Profile = () => {
         <>
           {user && user.user ? (
             <>
-              <div className="flex h-[70vh] bg-gray-50 font-sans justify-between  items-center ">
-                <div className="flex flex-col  justify-center items-center w-1/2">
+              <div className="flex h-[90vh] bg-gray-50 font-sans justify-between  items-center ">
+                <div className="flex flex-col  justify-center items-center ">
                   <img
-                    src={img}
-                    className="w-1/3 h-1/3 rounded-full shadow-lg"
+                    src={user && user.user && `http://localhost:4000/`+ user.user.image}
+                    className="w-1/2 h-1/2 shadow"
                     alt="/user"
                   />
                   <Link to="/updateprofile">

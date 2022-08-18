@@ -60,18 +60,16 @@ const OrderList = () => {
               className="w-[60%] flex bg-gray-100 justify-center items-center shadow rounded p-3 my-2"
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <thead className="w-[80%] border-[1.5px] bg-gray-500 justify-between border-b-0 border-black flex font-bold items-center py-3">
-              <th className="flex w-[20%] justify-center items-center">ID</th>
-              <th className="flex  w-[20%] justify-center items-center">
-                No of Items
+            <thead className="w-[80%] border-[1.5px] border-b-0 border-black flex justify-between font-bold items-center py-3">
+              <th className="flex w-[18%] justify-center items-center">
+                 Id
               </th>
-              <th className="flex w-[20%] justify-center items-center">
+              <th className="flex w-[18%] justify-center items-center">No of Items</th>
+              <th className="flex w-[18%] justify-center items-center">
                 Amount
               </th>
-              <th className="flex w-[20%] justify-center items-center">
-                Status
-              </th>
-              <th className="flex w-[20%] justify-center items-center">
+              <th className="flex w-[18%] justify-center items-center">Status</th>
+              <th className="flex w-[18%] justify-center items-center">
                 Actions
               </th>
             </thead>
@@ -97,20 +95,20 @@ const OrderList = () => {
                         key={index}
                         className="flex justify-between items-center space-y-4"
                       >
-                        <td className="flex w-[25%] justify-center items-center">
+                        <td className="flex w-[18%%] justify-center items-center">
                           {value._id}
                         </td>
-                        <td className=" flex w-[20%] justify-center items-center">
+                        <td className=" flex w-[18%] justify-center items-center">
                           {value.orderItems.length}
                         </td>
 
-                        <td className=" flex w-[23%] justify-center items-center">
+                        <td className=" flex w-[18%] justify-center items-center">
                           ${value.bill.allTotal}
                         </td>
-                        <td className="flex w-[15%] justify-center items-center">
+                        <td className="flex w-[18%] justify-center items-center">
                           {value.orderStatus}
                         </td>
-                        <td className="flex gap-x-2 w-[20%] justify-center items-center ">
+                        <td className="flex gap-x-2 w-[18%] justify-center items-center ">
                           <Link to={`/updateorder/${value._id}`}>
                             <p className="text-2xl">
                               <i className="fa-solid fa-edit"></i>

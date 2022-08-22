@@ -21,9 +21,9 @@ const Shipping = () => {
 
   return (
     <>
-      <div className="flex pt-12 pb-24 login flex-col bg-gray-100  font-bold rounded px-auto justify-center items-center">
-        <div className="shadow-lg rounded w-[40%] pt-6  bg-white flex flex-col justify-center items-center">
-          <p className="font-sans mb-6 font-bold text-red-500 text-2xl">
+      <div className="flex py-8 md:py-12 login flex-col bg-gray-100  font-bold rounded px-auto justify-center items-center">
+        <div className="shadow-lg rounded w-[90%] md:w-[60%] lg:w-[40%] pt-6  bg-white flex flex-col justify-center items-center">
+          <p className="font-sans mb-6 font-bold text-red-500 text-xl md:text-2xl">
             SHIPPING INFO
           </p>
           <Formik
@@ -71,7 +71,7 @@ const Shipping = () => {
                     </label>
                     <Field
                       as="select"
-                      className="mt-2 font-jakarta border h-12 py-2 px-3  w-80 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
+                      className="mt-2 font-jakarta border h-12 py-2 px-3  w-72 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
                       type="text"
                       name="state"
                     >

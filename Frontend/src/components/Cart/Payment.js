@@ -85,8 +85,9 @@ const Payment = () => {
             status: result.paymentIntent.status,
           };
           dispatch(createOrder(order));
-          localStorage.removeItem("cartItems");
           navigate("/success");
+          localStorage.removeItem("cartItems");
+          
          
         } else {
           window.alert(
@@ -102,24 +103,24 @@ const Payment = () => {
   return (
     <>
       {/* <PaymentElement /> */}
-      <div className="flex pt-12 pb-24 login flex-col bg-gray-100  font-bold rounded px-auto justify-center items-center">
-        <div className="shadow-lg rounded w-[40%] pt-6  bg-white flex flex-col justify-center items-center">
-          <p className="font-sans mb-6 font-bold text-red-500 text-2xl">
+      <div className="flex py-8 md:py-12 login flex-col bg-gray-100  font-bold rounded px-auto justify-center items-center">
+        <div className="shadow-lg rounded w-[90%] md:w-[60%] lg:w-[40%] pt-6 text-sm md:text-md lg:text-lg xl:text-xl  bg-white flex flex-col justify-center items-center">
+          <p className="font-sans mb-6 font-bold text-red-500 ">
             Card Details
           </p>
           <div className="px-8 pt-6 pb-8 h-400 w-96 flex flex-col justify-center items-center">
             <form>
               <div className="mb-4  flex flex-col justify-start">
-                <label className="font-sans text-sm uppercase">
+                <label className="font-sans  ">
                   Card Number
                 </label>
                 <CardNumberElement
-                  className="mt-2 font-jakarta border h-12 py-2 px-3  w-80 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
+                  className="mt-2 font-jakarta border h-12 py-2 px-3  w-72 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                 />
               </div>
               <div className="mb-4 flex flex-col justify-start">
-                <label className="font-sans text-sm uppercase">
+                <label className="font-sans  ">
                   Card Expiry
                 </label>
                 <CardExpiryElement
@@ -128,7 +129,7 @@ const Payment = () => {
                 />
               </div>
               <div className="mb-4 flex flex-col justify-start">
-                <label className="font-sans text-sm  uppercase">Card CVC</label>
+                <label className="font-sans   ">Card CVC</label>
                 <CardCvcElement
                   className="mt-2 font-sans appearance-none border h-12 py-2 px-3 w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
                   type="text"

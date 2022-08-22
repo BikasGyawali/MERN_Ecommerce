@@ -36,9 +36,9 @@ const CreateProduct = () => {
     <>
       <div className="flex w-full">
         <Sidebar />
-        <div className="flex w-full pt-12 pb-24 login flex-col bg-gray-5  h-screen font-bold rounded px-auto justify-start items-center">
-          <div className="shadow-lg rounded w-[40%] pt-6  bg-white flex flex-col justify-center items-center">
-            <p className="font-sans px-3 pt-2 text-red-500 font-bold text-2xl">
+        <div className="flex w-full py-6 md:py-16login flex-col bg-gray-5  h-screen font-bold rounded px-auto justify-start items-center">
+          <div className="text-sm md:text-md lg:text-lg xl:text-xl md:shadow-lg md:rounded md:w-[60%]   bg-white flex flex-col justify-center items-center">
+            <p className="font-sans px-3 pt-2 text-red-500 font-bold">
               Create Product
             </p>
             <Formik
@@ -64,7 +64,7 @@ const CreateProduct = () => {
             >
               {({values, setFieldValue }) => (
                 <Form>
-                  <div className="px-8 pt-6 pb-8 h-400 w-96 flex flex-col justify-center items-center">
+                  <div className=" text-sm md:text-md lg:text-lg xl:text-xl  pt-6 pb-10 h-400 w-96 flex flex-col justify-center items-center">
                     <div className="mb-4 flex flex-col justify-start ">
                       <label
                         htmlFor="name"
@@ -73,7 +73,7 @@ const CreateProduct = () => {
                         NAME
                       </label>
                       <Field
-                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3  w-72 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
+                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3  w-64 md:w-72 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         name="name"
                         placeholder="Enter Product name"
@@ -90,7 +90,7 @@ const CreateProduct = () => {
                         Description
                       </label>
                       <Field
-                        className="mt-2  font-sans appearance-none border h-32 py-2 px-3 w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
+                        className="mt-2  font-sans appearance-none border h-32 py-2 px-3  w-64 md:w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         name="description"
                         placeholder="Description"
@@ -108,7 +108,7 @@ const CreateProduct = () => {
                       </label>
                       <Field
                         as="select"
-                        className="mt-2 font-jakarta border h-12 py-2 px-3  w-80 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
+                        className="mt-2 font-jakarta border h-12 py-2 px-3   w-64 md:w-72 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         name="category"
                       >
@@ -132,7 +132,7 @@ const CreateProduct = () => {
                         Price
                       </label>
                       <Field
-                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3 w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
+                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3  w-64 md:w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         name="price"
                         placeholder="Price"
@@ -149,7 +149,7 @@ const CreateProduct = () => {
                         Stock
                       </label>
                       <Field
-                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3 w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
+                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3  w-64 md:w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
                         type="number"
                         name="stock"
                         placeholder="Stock"
@@ -167,7 +167,7 @@ const CreateProduct = () => {
                         Image
                       </label>
                       <input
-                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3 w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
+                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3  w-64 md:w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
                         type="file"
                         name="image"
                         placeholder="Image"

@@ -46,9 +46,9 @@ const ChangePassword = () => {
     <>
       {user && user.token ? (
         <>
-          <div className="flex pt-12 pb-24 login flex-col bg-gray-100 h-[70vh] font-bold rounded px-auto justify-center items-center">
-            <div className="shadow-lg rounded w-[40%] pt-6  bg-white flex flex-col justify-center items-center">
-              <p className="font-sans px-3 pt-2 text-red-500 font-bold text-2xl">
+          <div className="flex py-8 md:py-12 login flex-col bg-gray-100 font-bold rounded px-auto justify-center items-center">
+            <div className="shadow-lg rounded w-[90%] md:w-[60%] lg:w-[40%] pt-6  bg-white flex flex-col justify-center items-center">
+              <p className="font-sans px-3 pt-2 text-red-500 font-bold text-xl md:text-2xl">
                 Change Password
               </p>
               <Formik

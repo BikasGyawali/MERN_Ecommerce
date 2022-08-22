@@ -32,11 +32,11 @@ const ProductPage = () => {
           <p className="text-4xl font-sans">LOADING ...</p>
         </div>
       ) : (
-        <div className="bg-gray-100 w-full  mt-12 pb-20 ">
-          <p className="uppercase tracking-widest flex justify-center text-xl font-bold font-sans pt-8 pb-4 md:text-2xl">
+        <div className="bg-gray-100 w-full py-4 ">
+          <p className="uppercase tracking-widest flex justify-center text-xl font-bold font-sans md:text-xl">
             Featured Products
           </p>
-          <div className="flex w-full justify-center gap-x-6 items-center flex-wrap gap-y-6 md:gap-y-8 lg:gap-y-12">
+          <div className="flex w-full flex-row justify-between px-2 items-center flex-wrap pt-12 pb-24">
             {keyword ? (
               <>
                 <div className="flex w-[8vw] justify-start items-start space-y-2 flex-col font-sans font-bold uppercase">

@@ -34,9 +34,9 @@ const Login = () => {
 
   return (
     <>
-      <div className="flex pt-12 pb-24 login flex-col bg-gray-100 h-[70vh] font-bold rounded px-auto justify-center items-center">
-        <div className="shadow-lg rounded w-[40%] pt-6  bg-white flex flex-col justify-center items-center">
-          <p className="font-sans mb-6 font-bold text-red-500 text-2xl">
+      <div className="flex py-8 md:py-12 login flex-col bg-gray-100 font-bold rounded px-auto justify-center items-center">
+        <div className="shadow-lg rounded w-[90%] md:w-[60%] lg:w-[40%] pt-6  bg-white flex flex-col justify-center items-center">
+          <p className="font-sans mb-6 font-bold text-red-500 text-xl md:text-2xl">
             LOG IN
           </p>
           <Formik
@@ -102,12 +102,12 @@ const Login = () => {
               </Form>
             </>
           </Formik>
-          <div className="flex justify-end mt-2 items-end w-full "></div>
-          <div className="flex justify-center space-x-32  pt-6 pb-12 font-sans items-center">
+    
+          <div className="flex flex-col md:flex-row space-y-3 justify-center space-x-12 pt-6 pb-12 font-sans items-center">
             <Link to="/register">
               <p className="text-md">
                 Don't have an account?{" "}
-                <span className="text-green-500">Register</span>
+                <span className="text-green-500 border-b-[1.5px] border-green-500">Register</span>
               </p>
             </Link>
             <Link to="/forgotpassword">

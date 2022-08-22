@@ -65,15 +65,23 @@ const ProductDetails = () => {
           </div>
         </>
       ) : (
-        <div className="flex justify-evenly bg-gray-200 py-12 px-32 w-full">
-          <div className="flex justify-center items-center w-1/2">
-            <img src={`http://localhost:4000/`+ details.image} className="w-5/6 " alt="/product" />
+        <div className="flex flex-col md:flex-row justify-evenly bg-gray-200 py-12 px-12 md:px-32 w-full">
+          <div className="flex justify-center items-center w-full md:w-1/2">
+            <img
+              src={`http://localhost:4000/` + details.image}
+              className="w-full md:w-5/6"
+              alt="/product"
+            />
           </div>
-          <div className="flex w-1/2 flex-col space-y-6 font-sans font-bold justify-start pt-8 items-start pl-12">
-            <p className="text-3xl tracking-wide">{details.name}</p>
+          <div className="flex w-full md:w-1/2 flex-col space-y-6 font-sans font-bold justify-start pt-8 items-start md:pl-12">
+            <p className="text-xl md:text-2xl w-full tracking-wide">
+              {details.name}
+            </p>
             <ReactStars {...options} />
 
-            <span className="text-2xl font-sans">${details.price}</span>
+            <span className="text-xl md:text-2xl font-sans">
+              ${details.price}
+            </span>
             <div className="flex justify-center items-center space-x-3">
               <button
                 className="bg-red-500 p-1 h-8 w-8 rounded shadow-sm"
@@ -97,11 +105,15 @@ const ProductDetails = () => {
               </button>
             </div>
             {details && details.stock >= 1 ? (
-              <span className="text-lg font-bold">Status: IN STOCK</span>
+              <span className="text-sm md:text-md lg:text-lg xl:text-xl  font-bold">
+                Status: IN STOCK
+              </span>
             ) : (
-              <span className="text-lg font-bold">Status: OUT OF STOCK</span>
+              <span className="text-sm md:text-md lg:text-lg xl:text-xl font-bold">
+                Status: OUT OF STOCK
+              </span>
             )}
-            <p className="text-lg font-medium w-full text-justify">
+            <p className="text-sm md:text-md lg:text-lg xl:text-xl font-medium w-full text-justify">
               {details.description}
             </p>
           </div>

@@ -16,8 +16,8 @@ const Products = ({ product }) => {
   return (
     <>
       <Link to={`/product/${product._id}`}>
-        <div className="flex flex-col h-64 w-64 md:h-80 md:w-80 rounded shadow-xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300 hover:shadow-2xl">
-          <img src={`http://localhost:4000/`+ product.image} className="rounded" alt="img" />
+        <div className="flex flex-col h-44 w-44 md:h-64 md:w-64 lg:h-80 lg:w-80 rounded shadow-xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300 hover:shadow-2xl">
+          <img src={`http://localhost:4000/`+ product.image} className="rounded h-full w-full" alt="img" />
           <div className="pl-2 pt-2">
             <p>{product.name}</p>
 

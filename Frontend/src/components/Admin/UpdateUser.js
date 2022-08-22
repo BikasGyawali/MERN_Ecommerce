@@ -41,10 +41,10 @@ const UpdateUser = () => {
     <>
       <div className="flex w-full">
         <Sidebar />
-        <div className="flex w-full pt-12 pb-24 login flex-col bg-gray-5  h-screen font-bold rounded px-auto justify-start items-center">
-          <div className="shadow-lg rounded w-[40%] pt-6  bg-white flex flex-col justify-center items-center">
-            <p className="font-sans px-3 pt-2 text-red-500 font-bold text-2xl">
-              Update Product
+        <div className="flex w-full text-sm md:text-md lg:text-lg xl:text-xl py-6 md:py-12 login flex-col bg-gray-5 font-bold rounded px-auto justify-start items-center">
+          <div className="md:shadow-lg md:rounded  md:w-[60%]   bg-white flex flex-col justify-center items-center">
+            <p className="font-sans px-3 pt-2 text-red-500 font-bold text-xl md:text-2xl">
+              Update User
             </p>
             <Formik
               enableReinitialize
@@ -69,16 +69,16 @@ const UpdateUser = () => {
             >
               {({ values }) => (
                 <Form>
-                  <div className="px-8 pt-6 pb-8 h-400 w-96 flex flex-col justify-center items-center">
+                  <div className="px-8 pt-6 pb-8 md:w-96 flex flex-col justify-center items-center">
                     <div className="mb-4 flex flex-col justify-start ">
                       <label
                         htmlFor="name"
-                        className="font-sans text-sm lg:text-lg uppercase"
+                        className="font-sans  uppercase"
                       >
                         NAME
                       </label>
                       <Field
-                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3  w-72 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
+                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3  w-64 md:72 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         name="name"
                         placeholder="Enter Product name"
@@ -90,12 +90,12 @@ const UpdateUser = () => {
                     <div className="mb-4  flex flex-col justify-start">
                       <label
                         htmlFor="email"
-                        className="font-sans  text-sm lg:text-lg uppercase"
+                        className="font-sans   uppercase"
                       >
                         Email
                       </label>
                       <Field
-                        className="mt-2  font-sans appearance-none border h-32 py-2 px-3 w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
+                        className="mt-2  font-sans appearance-none border h-12 py-2 px-3 w-64 md:72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         name="email"
                         placeholder="Email"
@@ -107,13 +107,13 @@ const UpdateUser = () => {
                     <div className="mb-4 flex flex-col justify-start">
                       <label
                         htmlFor="role"
-                        className="font-sans text-sm lg:text-lg uppercase"
+                        className="font-sans  uppercase"
                       >
                         Role
                       </label>
                       <Field
                         as="select"
-                        className="mt-2 font-jakarta border h-12 py-2 px-3  w-80 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
+                        className="mt-2 font-jakarta border h-12 py-2 px-3  w-64 md:72 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         name="role"
                       >

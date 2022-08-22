@@ -43,6 +43,10 @@ const OrderSchema = mongoose.Schema({
         required: true,
         min: [1, "Quantity cannot be less than 1."],
       },
+      image: {
+        type: String,
+        required: true,
+      },
     },
   ],
   user: {
@@ -69,13 +73,13 @@ const OrderSchema = mongoose.Schema({
     },
   },
   paymentInfo: {
-    id:{
-    type:String,
-    required:true
+    id: {
+      type: String,
+      required: true,
     },
     status: {
       type: String,
-      required:true
+      required: true,
     },
   },
   dateAdded: {

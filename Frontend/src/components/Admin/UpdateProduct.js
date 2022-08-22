@@ -18,6 +18,8 @@ const UpdateProduct = () => {
   const { error, success } = useSelector((state) => state.updatedeleteproduct);
   const { id } = useParams();
 
+  const { details } = useSelector((state) => state.productDetails);
+
   useEffect(() => {
     dispatch(getProductDetails(id));
     if (success) {
@@ -27,7 +29,6 @@ const UpdateProduct = () => {
     }
   }, [dispatch, error, success]);
 
-  const { details } = useSelector((state) => state.productDetails);
   const [img, setImg] = useState();
   const [oldImg, setOldImg] = useState(details && details.image);
 
@@ -49,9 +50,9 @@ const UpdateProduct = () => {
     <>
       <div className="flex w-full">
         <Sidebar />
-        <div className="flex w-full pt-12 pb-24 login flex-col bg-gray-5  h-screen font-bold rounded px-auto justify-start items-center">
-          <div className="shadow-lg rounded w-[40%] pt-6  bg-white flex flex-col justify-center items-center">
-            <p className="font-sans px-3 pt-2 text-red-500 font-bold text-2xl">
+        <div className="flex w-full text-sm md:text-md lg:text-lg xl:text-xl py-2 md:py-12 login flex-col bg-gray-5  font-bold rounded justify-center items-center">
+          <div className="md:shadow-lg md:rounded md:w-[60%]   bg-white flex flex-col justify-center items-center">
+            <p className="font-sans px-3  text-red-500 font-bold text-xl  md:text-2xl">
               Update Product
             </p>
             <Formik
@@ -80,7 +81,7 @@ const UpdateProduct = () => {
             >
               {({ values, setFieldValue }) => (
                 <Form>
-                  <div className="px-8 pt-6 pb-8 h-400 w-96 flex flex-col justify-center items-center">
+                  <div className="px-8 pt-2 pb-8  md:w-96 flex flex-col justify-center items-center">
                     <div className="mb-4 flex flex-col justify-start ">
                       <label
                         htmlFor="name"
@@ -89,7 +90,7 @@ const UpdateProduct = () => {
                         NAME
                       </label>
                       <Field
-                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3  w-72 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
+                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3 w-64 md:w-72 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         name="name"
                         placeholder="Enter Product name"
@@ -106,7 +107,7 @@ const UpdateProduct = () => {
                         Description
                       </label>
                       <Field
-                        className="mt-2  font-sans appearance-none border h-32 py-2 px-3 w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
+                        className="mt-2  font-sans appearance-none border h-32 py-2 px-3 w-64 md:w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         name="description"
                         placeholder="Description"
@@ -124,7 +125,7 @@ const UpdateProduct = () => {
                       </label>
                       <Field
                         as="select"
-                        className="mt-2 font-jakarta border h-12 py-2 px-3  w-80 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
+                        className="mt-2 font-jakarta border h-12 py-2 px-3  w-64 md:w-72 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         name="category"
                       >
@@ -148,7 +149,7 @@ const UpdateProduct = () => {
                         Price
                       </label>
                       <Field
-                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3 w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
+                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3 w-64 md:w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         name="price"
                         placeholder="Price"
@@ -165,7 +166,7 @@ const UpdateProduct = () => {
                         Stock
                       </label>
                       <Field
-                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3 w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
+                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3 w-64 md:w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
                         type="number"
                         name="stock"
                         placeholder="Stock"
@@ -183,7 +184,7 @@ const UpdateProduct = () => {
                         Image
                       </label>
                       <input
-                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3 w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
+                        className="mt-2 font-sans appearance-none border h-12 py-2 px-3 w-64 md:w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
                         type="file"
                         name="image"
                         placeholder="Image"

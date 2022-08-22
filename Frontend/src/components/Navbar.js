@@ -22,11 +22,61 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar flex w-full items-center font-sans justify-between py-4 px-8 lg:px-20 bg-transparent relative">
-        <a href="#" className="font-bold  tracking-wide font-sans">
+      <div className="navbar flex w-full items-center font-sans justify-between py-4 px-2 md:px-8 lg:px-20 bg-transparent relative">
+        <a href="#" className="font-bold hidden md:flex tracking-wide font-sans">
           <img src={logo} className="h-8 w-10" alt="/logo" />
         </a>
-        <div className="hidden flex-row gap-12 lg:flex md:flex">
+        <div className="md:hidden lg:hidden pr-3">
+          <button
+            aria-label="Open Menu"
+            title="Open Menu"
+            className="-mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
+            onClick={() => setIsMenuOpen(true)}
+          >
+            <p className="text-xl">
+              <i className="fa-solid fa-bars"></i>
+            </p>
+          </button>
+          {isMenuOpen && (
+            <div className="absolute flex flex-col z-10 bg-white top-0 right-0 w-full">
+              <div className="flex justify-between items-center py-4 px-8">
+                <a href="#" className="font-bold tracking-wide font-sans">
+                  <img src={logo} className="h-6 w-8  " alt="/logo" />
+                </a>
+                <button
+                  aria-label="Close Menu"
+                  title="Close Menu"
+                  className=" flex transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50  focus:bg-gray-200  focus:shadow-outline"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <p className="text-2xl">
+                    <i className="fa-solid fa-xmark"></i>
+                  </p>
+                </button>
+              </div>
+              <div className="flex flex-col justify-start shadow rounded  bg-gray-50 px-4 mx-8 py-4 mb-4 space-y-2">
+                <ul className="">
+                  <li>
+                    <a className="font-bold font-sans text-sm md:text-md lg:text-lg xl:text-xl">Weights</a>
+                  </li>
+                  <li>
+                    <a className="font-bold font-sans text-sm md:text-md lg:text-lg xl:text-xl">Calisthenics</a>
+                  </li>
+                  <li>
+                    <a className="font-bold font-sans text-sm md:text-md lg:text-lg xl:text-xl">CrossFit</a>
+                  </li>
+                  <li>
+                    <a className="font-bold font-sans text-sm md:text-md lg:text-lg xl:text-xl">Weights</a>
+                  </li>
+                  <li>
+                    <a className="font-bold font-sans text-sm md:text-md lg:text-lg xl:text-xl">Weights</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="hidden flex-row md:gap-6 lg:gap-10 lg:flex md:flex">
           <div className="dropdown inline-block">
             <div>
               {" "}
@@ -198,32 +248,40 @@ const Navbar = () => {
         {user && user.token ? (
           <>
             {" "}
-            <div className=" flex justify-center items-center">
+            <div className="flex justify-center items-center">
               <Link to="/cart">
-                <p className="text-2xl pr-3" alt="Add to cart">
+                <p className="md:text-2xl text-xl pr-2" alt="Add to cart">
                   <i className="fa-solid fa-cart-arrow-down"></i>(
                   {cartItems.length})
                 </p>
               </Link>
               <div className="dropdown relative">
-                <p className="flex justify-center items-center text-2xl bg-orange-400 h-12 w-12 rounded-full shadow-lg hover:cursor-pointer">
-                  <img
-                    src={
-                      user &&
-                      user.user &&
-                      `http://localhost:4000/` + user.user.image
-                    }
-                    className="rounded-full shadow-lg"
-                    alt="user"
-                  />
+                <p className="flex justify-center items-center text-2xl bg-orange-400 h-10 w-10 md:h-12 md:w-12 rounded-full shadow-lg hover:cursor-pointer">
+                  {user && user.user && user.user.image ? (
+                    <>
+                      <img
+                        src={
+                          user &&
+                          user.user &&
+                          `http://localhost:4000/` + user.user.image
+                        }
+                        className="rounded-full shadow-lg"
+                        alt="user"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <i className="fa-solid fa-user"></i>
+                    </>
+                  )}
                 </p>
 
-                <div className="dropdownmenu absolute hidden font-bold bg-white z-10 -left-12 top-12 w-40 px-auto pt-5 pb-8 shadow rounded">
-                  <ul className="flex-col justify-center  px-12 items-center tracking-wide font-sans">
+                <div className="dropdownmenu absolute hidden font-bold bg-white z-10 -left-16 md:-left-20 lg:-left-12 top-10 md:top-12 w-28 md:w-40 px-auto pt-5 pb-8 shadow rounded">
+                  <ul className="flex-col justify-center pl-8 md:px-12 items-center tracking-wide font-sans">
                     <li className="mb-3">
                       <Link
                         to="/profile"
-                        className="font-base text-md font-sans tracking-wide hover:text-green-600"
+                        className="font-base text-sm md:text-md font-sans tracking-wide hover:text-green-600"
                       >
                         Profile
                       </Link>
@@ -233,7 +291,7 @@ const Navbar = () => {
                         <li className="mb-3">
                           <Link
                             to="/admin/dashboard"
-                            className="font-base text-md font-sans tracking-wide hover:text-green-600"
+                            className="font-base text-sm md:text-md font-sans tracking-wide hover:text-green-600"
                           >
                             Dashboard
                           </Link>
@@ -245,7 +303,7 @@ const Navbar = () => {
                     <li className="mb-6">
                       <Link
                         to="/order"
-                        className="font-base text-md mt-4 font-sans tracking-wide hover:text-green-600"
+                        className="font-base text-sm md:text-md mt-4 font-sans tracking-wide hover:text-green-600"
                       >
                         Orders
                       </Link>
@@ -254,7 +312,7 @@ const Navbar = () => {
                       <Link
                         to="/"
                         onClick={handleLogOut}
-                        className="font-base text-md rounded text-white shadow-xl px-3 py-2 font-sans tracking-wide bg-red-600 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300 hover:shadow-xl"
+                        className="font-base text-sm md:text-md rounded text-white shadow-xl px-2 py-2 font-sans tracking-wide bg-red-600 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300 hover:shadow-xl"
                       >
                         Logout
                       </Link>
@@ -265,9 +323,9 @@ const Navbar = () => {
             </div>
           </>
         ) : (
-          <div className="hidden lg:flex md:flex  flex-row justify-evenly w-20">
+          <div className="flex  flex-row justify-evenly w-20">
             <Link to="/cart">
-              <p className="text-2xl pr-1" alt="Add to cart">
+              <p className="text-xl pr-1" alt="Add to cart">
                 <i className="fa-solid fa-cart-arrow-down"></i>(
                 {cartItems.length})
               </p>
@@ -279,56 +337,7 @@ const Navbar = () => {
             </Link>
           </div>
         )}
-        <div className="md:hidden lg:hidden">
-          <button
-            aria-label="Open Menu"
-            title="Open Menu"
-            className="-mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
-            onClick={() => setIsMenuOpen(true)}
-          >
-            <p className="text-xl">
-              <i className="fa-solid fa-bars"></i>
-            </p>
-          </button>
-          {isMenuOpen && (
-            <div className="absolute flex flex-col z-10 bg-white top-0 right-0 w-full">
-              <div className="flex justify-between items-center py-4 px-8">
-                <a href="#" className="font-bold tracking-wide font-sans">
-                  <img src={logo} className="h-8 w-10 " alt="/logo" />
-                </a>
-                <button
-                  aria-label="Close Menu"
-                  title="Close Menu"
-                  className=" flex transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50  focus:bg-gray-200  focus:shadow-outline"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <p className="text-2xl">
-                    <i className="fa-solid fa-xmark"></i>
-                  </p>
-                </button>
-              </div>
-              <div className="flex flex-col justify-start shadow rounded  bg-gray-50 px-4 mx-8 py-4 mb-4 space-y-2">
-                <ul className="">
-                  <li>
-                    <a className="font-bold font-sans text-xl">Weights</a>
-                  </li>
-                  <li>
-                    <a className="font-bold font-sans text-xl">Calisthenics</a>
-                  </li>
-                  <li>
-                    <a className="font-bold font-sans text-xl">CrossFit</a>
-                  </li>
-                  <li>
-                    <a className="font-bold font-sans text-xl">Weights</a>
-                  </li>
-                  <li>
-                    <a className="font-bold font-sans text-xl">Weights</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          )}
-        </div>
+        
       </div>
     </>
   );

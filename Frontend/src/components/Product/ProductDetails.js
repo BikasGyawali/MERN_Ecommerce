@@ -45,7 +45,7 @@ const ProductDetails = () => {
     }
   };
 
-  console.log(details);
+
 
   const options = {
     edit: false,

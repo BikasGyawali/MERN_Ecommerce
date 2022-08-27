@@ -31,7 +31,7 @@ const UpdateProfile = () => {
   }, [dispatch, error, isUpdated, navigate]);
 
   const { loading, user } = useSelector((state) => state.auth);
-  console.log(user);
+ 
   const [oldImg, setOldImg] = useState(user && user.user && user.user.image);
 
   const handleSubmit = (values) => {
@@ -40,9 +40,7 @@ const UpdateProfile = () => {
     formData.set("name", values.name);
     formData.set("email", values.email);
     formData.set("image", values.image);
-    for (let value of formData.values()) {
-      console.log(value);
-    }
+    
     dispatch(updateUser(id, formData));
   };
 

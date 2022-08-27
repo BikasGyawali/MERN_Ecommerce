@@ -128,7 +128,7 @@ const UpdateOrder = () => {
                       >
                         <div className="w-full md:w-[20%] flex justify-center items-center">
                           <img
-                            src={item.image}
+                            src={`http://localhost:4000/`+ item.image}
                             className="h-16 md:h-20"
                             alt={item.name}
                           />

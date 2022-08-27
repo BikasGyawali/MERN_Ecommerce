@@ -290,7 +290,7 @@ const Navbar = () => {
                       <>
                         <li className="mb-3">
                           <Link
-                            to="/admin/dashboard"
+                            to="/admin/orders"
                             className="font-base text-sm md:text-md font-sans tracking-wide hover:text-green-600"
                           >
                             Dashboard

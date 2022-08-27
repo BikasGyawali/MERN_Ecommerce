@@ -1,5 +1,4 @@
 import React from "react";
-import Img from "../../images/1.jpg";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 

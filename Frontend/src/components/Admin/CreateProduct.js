@@ -18,7 +18,7 @@ const CreateProduct = () => {
       dispatch({ type: NEW_PRODUCT_RESET });
     }
   }, [dispatch, error, success]);
- 
+
   const handleSubmit = (values) => {
     const formData = new FormData();
     formData.set("name", values.name);
@@ -27,9 +27,7 @@ const CreateProduct = () => {
     formData.set("price", values.price);
     formData.set("stock", values.stock);
     formData.set("image", values.image);
-    for (let value of formData.values()){
-      console.log(value)
-    }
+   
     dispatch(createProduct(formData));
   };
   return (
@@ -62,7 +60,7 @@ const CreateProduct = () => {
               })}
               onSubmit={handleSubmit}
             >
-              {({values, setFieldValue }) => (
+              {({ values, setFieldValue }) => (
                 <Form>
                   <div className=" text-sm md:text-md lg:text-lg xl:text-xl  pt-6 pb-10 h-400 w-96 flex flex-col justify-center items-center">
                     <div className="mb-4 flex flex-col justify-start ">
@@ -172,13 +170,23 @@ const CreateProduct = () => {
                         name="image"
                         placeholder="Image"
                         onChange={(e) => {
-                          setFieldValue("image", e.target.files[0],e.target.files[0].name);
+                          setFieldValue(
+                            "image",
+                            e.target.files[0],
+                            e.target.files[0].name
+                          );
                           if (e.target.files.length) {
                             setImg(URL.createObjectURL(e.target.files[0]));
                           }
                         }}
                       />
-                      {img && <img src={img} className="h-32 w-32 md:h-40 md:w-40 mt-4" alt="productdetails"/>}
+                      {img && (
+                        <img
+                          src={img}
+                          className="h-32 w-32 md:h-40 md:w-40 mt-4"
+                          alt="productdetails"
+                        />
+                      )}
                       <p className="text-red-500 center font-sans font-normal">
                         <ErrorMessage name="image" />
                       </p>

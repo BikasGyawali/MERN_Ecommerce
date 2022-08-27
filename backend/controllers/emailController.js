@@ -3,9 +3,9 @@ require("dotenv").config();
 
 module.exports = async (email, subject, text) => {
   try {
-    console.log(email);
-    console.log(subject);
-    console.log(text);
+    email;
+    subject;
+    text;
     const transporter = nodemailer.createTransport({
       host: process.env.HOST,
       service: process.env.SERVICE,
@@ -16,15 +16,15 @@ module.exports = async (email, subject, text) => {
         pass: process.env.PASS,
       },
     });
-    console.log(transporter);
+    transporter;
     const mail = await transporter.sendMail({
       from: process.env.USER,
       to: email,
       subject: subject,
       text: `Visit the given link to reset your password \n${text}`,
     });
-    console.log("Email sent successfully");
-  } catch (error) { 
-    console.log("Given email doesn't exists");
+    ("Email sent successfully");
+  } catch (error) {
+    ("Given email doesn't exists");
   }
 };

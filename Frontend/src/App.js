@@ -118,13 +118,7 @@ function App() {
                 />
               </>
             ) : (
-              <>
-                <Route
-                  path="/unauthorized"
-                  exact
-                  element={<Unauthorized />}
-                ></Route>
-              </>
+              <></>
             )}
           </Routes>
         </>

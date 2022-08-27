@@ -94,7 +94,7 @@ const updateOrder = async (req, res) => {
     const product = await Item.findById(id);
     product.stock -= quantity;
 
-    await Item.findByIdAndUpdate( id, {stock: product.stock });
+    await Item.findByIdAndUpdate(id, { stock: product.stock });
   }
 };
 

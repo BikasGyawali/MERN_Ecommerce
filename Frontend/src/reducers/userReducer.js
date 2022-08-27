@@ -32,6 +32,10 @@ import {
   SINGLE_USER_REQUEST,
   SINGLE_USER_SUCCESS,
   SINGLE_USER_FAIL,
+  DELETE_USER_REQUEST,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAIL,
+  DELETE_USER_RESET,
 } from "../constants/userConstants";
 
 export const authReducer = (state = { user: {} }, action) => {
@@ -94,6 +98,7 @@ export const userReducer = (state = {}, action) => {
     case UPDATE_USER_ADMIN_REQUEST:
     case CHANGE_PASSWORD_REQUEST:
     case FORGOT_PASSWORD_REQUEST:
+    case DELETE_USER_REQUEST:
       return {
         ...state,
         loading: true,
@@ -107,11 +112,17 @@ export const userReducer = (state = {}, action) => {
         loading: false,
         isUpdated: action.payload,
       };
-
+    case DELETE_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
     case UPDATE_USER_FAIL:
     case UPDATE_USER_ADMIN_FAIL:
     case CHANGE_PASSWORD_FAIL:
     case FORGOT_PASSWORD_FAIL:
+    case DELETE_USER_FAIL:
       return {
         ...state,
         loading: false,
@@ -123,6 +134,12 @@ export const userReducer = (state = {}, action) => {
       return {
         ...state,
         isUpdated: false,
+      };
+
+    case DELETE_USER_RESET:
+      return {
+        ...state,
+        isDeleted: false,
       };
 
     case CLEAR_ERRORS:
@@ -146,7 +163,7 @@ export const forgotPasswordReducer = (state = {}, action) => {
       return {
         ...state,
         success: action.payload.success,
-        message:action.payload.message
+        message: action.payload.message,
       };
     case FORGOT_PASSWORD_FAIL:
       return {

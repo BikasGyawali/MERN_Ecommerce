@@ -5,7 +5,7 @@ const { ImageUpload } = require("../controllers/imageController");
 //ADD ITEM--Admin
 const addItem = async (req, res) => {
   const value = req.body;
-  console.log(req.body);
+  req.body;
   const image = req.file.path;
   const product = await Item.create({
     name: value.name,
@@ -23,7 +23,7 @@ const addItem = async (req, res) => {
 
 //Get/Search all item --User
 const getAllItem = async (req, res) => {
-  const pageSize = 4;
+  const pageSize = 12;
 
   const page = Number(req.query.pageNumber) || 1;
   const keyword = req.query.keyword
@@ -69,7 +69,7 @@ const getAllItem = async (req, res) => {
   const filteredProductsCount = filteredProducts?.length;
 
   // const filteredProducts=await products.filter((product)=>product.category===queryCopy);
-  // console.log(filteredProducts);
+  // (filteredProducts);
 
   // .limit(pageSize)
   // .skip(pageSize * (page - 1));
@@ -94,7 +94,7 @@ const getAdminItem = async (req, res) => {
 //get single item
 const getSingleItem = async (req, res) => {
   const item = await Item.findById(req.params.id);
-  console.log(item);
+  item;
   if (!item) {
     return res.status(500).json({
       success: false,

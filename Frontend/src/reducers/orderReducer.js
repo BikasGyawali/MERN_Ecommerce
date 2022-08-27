@@ -142,7 +142,7 @@ export const allOrdersReducer = (state = { orders: [] }, action) => {
   }
 };
 
-//all orders reducer
+//update orders reducer
 export const updateOrderReducer = (state = { }, action) => {
   switch (action.type) {
     case UPDATE_ORDER_REQUEST:

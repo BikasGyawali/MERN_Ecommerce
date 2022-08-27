@@ -28,7 +28,7 @@ export const createOrder = (order) => async (dispatch) => {
     dispatch({
       type: CREATE_ORDER_REQUEST,
     });
-    console.log(order);
+
     const { data } = await axios.post("http://localhost:4000/api/createorder", {
       order,
     });
@@ -51,7 +51,7 @@ export const myOrders = () => async (dispatch) => {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
     });
-    console.log(data);
+
     dispatch({
       type: MY_ORDER_SUCCESS,
       payload: data.order,

@@ -40,9 +40,7 @@ const UpdateProduct = () => {
     formData.set("price", values.price);
     formData.set("stock", values.stock);
     formData.set("image", values.image);
-    for (let value of formData.values()) {
-      console.log(value);
-    }
+   
     dispatch(updateProduct(id, formData));
   };
 

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { myOrders, clearErrors } from "../../actions/orderAction";
 const Order = () => {
   const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm]=useState("")
   const { loading, error, orders } = useSelector((state) => state.myOrders);
 
   useEffect(() => {
@@ -15,75 +16,98 @@ const Order = () => {
   }, [dispatch, error]);
   return (
     <>
-      {orders && orders.length ? (
-        <>
-          <table className="flex text-sm md:text-md lg:text-lg xl:text-xl bg-gray-100 flex-col justify-top items-center py-12">
-            <p className=" font-sans font-bold uppercase pb-8 ">My orders</p>
-            <thead className="w-[98%] border-[1.5px] border-b-0 border-black flex justify-between font-bold items-center py-3">
-              <th className="hidden md:flex w-[18%] justify-center items-center">
-                Order ID
-              </th>
-              <th className="flex w-[18%] justify-center items-center">
-                No of Items
-              </th>
-              <th className="flex w-[18%] justify-center items-center">
-                Amount
-              </th>
-              <th className="flex w-[18%] justify-center items-center">
-                Status
-              </th>
-              <th className="flex w-[18%] justify-center items-center">
-                Actions
-              </th>
-            </thead>
-
-            <tbody className="w-[98%] font-sans font-[600] flex flex-col border-[1.5px] border-black py-3">
-              {orders &&
-                orders.map((value, index) => {
-                  return (
-                    <tr
-                      key={index}
-                      className="flex justify-between items-center space-y-4"
-                    >
-                      <td className=" hidden md:flex w-[18%] justify-center items-center">
-                        {value._id}
-                      </td>
-                      <td className="flex w-[18%] justify-center items-center">
-                        {value.orderItems.length}
-                      </td>
-
-                      <td className="flex w-[18%] justify-center items-center">
-                        ${value.bill.allTotal}
-                      </td>
-                      <td
-                        className={
-                          value.orderStatus !== "Processing"
-                            ? "text-green-500 flex w-[18%] justify-center items-center"
-                            : "text-red-500 flex w-[18%] justify-center items-center"
-                        }
+         <div className="w-full">
+          {orders && orders.length >= 1 ? (
+            <>
+              <div className="flex flex-col justify-center items-center">
+                <p className="text-xl md:text-2xl font-sans font-bold uppercase pb-4">
+                  Orders List
+                </p>
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="w-[80%] lg:w-[60%] flex  bg-gray-100 justify-center items-center shadow rounded p-3 mb-4"
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+              <div class="overflow-x-auto relative">
+                <table class="w-full text-sm text-left font-sans  dark:text-gray-400">
+                  <thead class="text-sm md:text-md lg:text-lg xl:text-xl  bg-gray-50 dark:bg-gray-700">
+                    <tr>
+                      <th scope="col" className="py-3 px-6 whitespace-nowrap ">
+                        Id
+                      </th>
+                      <th
+                        scope="col"
+                        className="py-3   px-6  whitespace-nowrap"
                       >
-                        {value.orderStatus}
-                      </td>
-                      <td className="flex w-[18%] justify-center items-center ">
-                        <Link to={`/orderdetails/${value._id}`}>
-                          <p className="text-2xl">
-                            <i class="fa-solid fa-eye"></i>
-                          </p>
-                        </Link>
-                      </td>
+                        No of Items
+                      </th>
+                      <th
+                        scope="col"
+                        className="py-3  px-6   whitespace-nowrap"
+                      >
+                        Amount
+                      </th>
+                      <th scope="col" className="py-3  px-6  whitespace-nowrap">
+                        Actions
+                      </th>
                     </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-        </>
-      ) : (
-        <>
-          <div className="flex justify-center items-center font-sans font-bold text-2xl lg:text-4xl">
-            You Haven't Ordered Any Items Yet!!!
-          </div>
-        </>
-      )}
+                  </thead>
+
+                  <tbody className=" font-sans font-[600]">
+                    {orders &&
+                      orders
+                        .filter((val) => {
+                          if (searchTerm === "") {
+                            return val;
+                          } else if (
+                            val._id
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase())
+                          ) {
+                            return val;
+                          }
+                        })
+                        .map((value, index) => {
+                          return (
+                            <tr
+                              className="text-sm md:text-md lg:text-lg xl:text-xl bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                              key={index}
+                            >
+                              <td className="py-3 px-6 whitespace-nowrap">
+                                {value._id}
+                              </td>
+
+                              <td className="py-3 px-6 whitespace-nowrap">
+                                {value.orderItems.length}
+                              </td>
+                              <td className="py-3 px-6 whitespace-nowrap">
+                                ${value.bill.allTotal}
+                              </td>
+                              <td className="flex py-3 px-6 whitespace-nowrap">
+                                <Link to={`/orderdetails/${value._id}`}>
+                                  <p className="text-2xl">
+                                    <i className="fa-solid fa-eye"></i>
+                                  </p>
+                                </Link>
+                  
+                              </td>
+                            </tr>
+                          );
+                        })}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex justify-center items-center h-screen font-sans font-bold text-2xl lg:text-4xl">
+                No Orders at the moment
+              </div>
+            </>
+          )}
+        </div>
     </>
   );
 };

@@ -30,6 +30,9 @@ import {
   SINGLE_USER_REQUEST,
   SINGLE_USER_SUCCESS,
   SINGLE_USER_FAIL,
+  DELETE_USER_REQUEST,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAIL,
 } from "../constants/userConstants";
 
 //login user
@@ -162,7 +165,7 @@ export const changePassword = (values) => async (dispatch) => {
 //forgot password
 export const forgotPassword = (values) => async (dispatch) => {
   try {
-    console.log(values);
+    values;
     dispatch({ type: FORGOT_PASSWORD_REQUEST });
     const { data } = await axios.post(
       `http://localhost:4000/api/forgotpassword`,
@@ -170,7 +173,7 @@ export const forgotPassword = (values) => async (dispatch) => {
         values,
       }
     );
-    console.log(data);
+    data;
     dispatch({
       type: FORGOT_PASSWORD_SUCCESS,
       payload: data,
@@ -256,6 +259,29 @@ export const updateSingleUser = (id, values) => async (dispatch) => {
   }
 };
 
+//delete single user --Admin
+export const deleteSingleUser = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_USER_REQUEST });
+    const { data } = await axios.delete(
+      `http://localhost:4000/api/admin/deleteuser/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    );
+    dispatch({
+      type: DELETE_USER_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_USER_FAIL,
+      payload: error.response.data,
+    });
+  }
+};
 //Clear ERRORS
 export const clearErrors = () => async (dispatch) => {
   dispatch({

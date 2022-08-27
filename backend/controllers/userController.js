@@ -34,7 +34,7 @@ const signup = async (req, res) => {
       }
     }
   } catch (err) {
-    console.log(err);
+    err;
     res.json(err);
   }
 };
@@ -82,7 +82,7 @@ const getUser = async (req, res) => {
       res.json({ error: "error" });
     }
   } catch (err) {
-    console.log(err);
+    err;
   }
 };
 
@@ -109,7 +109,7 @@ const updateUser = async (req, res) => {
 
     res.json({ success: true });
   } catch (err) {
-    console.log(err);
+    err;
     res.json(err);
   }
 };
@@ -156,9 +156,9 @@ const changePassword = async (req, res) => {
 const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body.values;
-    console.log(email);
+    email;
     const user = await User.findOne({ email }).select("+password");
-    console.log(user);
+    user;
 
     if (user) {
       //user exists and create a one time link valid for 2 minutes
@@ -230,10 +230,24 @@ const getAllUsers = async (req, res) => {
 //update user--Admin
 const updateUserAdmin = async (req, res) => {
   try {
-    console.log(req.body.values);
+    req.body.values;
     const user = await User.findById(req.params.id);
     if (user) {
       await User.findByIdAndUpdate(req.params.id, req.body.values);
+      res.json({ success: true });
+    } else {
+      res.json({ success: false, message: "No such user exists" });
+    }
+  } catch (error) {
+    res.json({ success: false, error: error });
+  }
+};
+
+const deleteuser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      await User.findByIdAndDelete(req.params.id);
       res.json({ success: true });
     } else {
       res.json({ success: false, message: "No such user exists" });
@@ -254,4 +268,5 @@ module.exports = {
   getSingleUser,
   updateUserAdmin,
   handleForgotPassword,
+  deleteuser,
 };

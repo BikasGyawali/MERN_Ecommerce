@@ -68,7 +68,7 @@ const Login = () => {
                       Email
                     </label>
                     <Field
-                      className="mt-2 font-sans appearance-none border h-12 py-2 px-3 w-72 lg:w-[30vw]  leading-tight focus:outline-none focus:shadow-outline"
+                      className="mt-2 font-sans appearance-none border h-12 py-2 px-3 w-72 lg:w-[30vw] leading-tight focus:outline-none focus:shadow-outline"
                       type="email"
                       name="email"
                       placeholder="Email"
